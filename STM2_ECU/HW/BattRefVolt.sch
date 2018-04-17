@@ -1,0 +1,168 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:STM2_ECU-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 13 16
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L R_Small R66
+U 1 1 59DB7366
+P 5100 3350
+F 0 "R66" H 5130 3370 50  0000 L CNN
+F 1 "3K9" H 5130 3310 50  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 5100 3350 50  0001 C CNN
+F 3 "" H 5100 3350 50  0000 C CNN
+	1    5100 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L R_Small R67
+U 1 1 59DB7457
+P 5100 3750
+F 0 "R67" H 5130 3770 50  0000 L CNN
+F 1 "1K" H 5130 3710 50  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 5100 3750 50  0001 C CNN
+F 3 "" H 5100 3750 50  0000 C CNN
+	1    5100 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L R_Small R68
+U 1 1 59DB749E
+P 5900 3550
+F 0 "R68" H 5930 3570 50  0000 L CNN
+F 1 "470U" H 5930 3510 50  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 5900 3550 50  0001 C CNN
+F 3 "" H 5900 3550 50  0000 C CNN
+	1    5900 3550
+	0    1    1    0   
+$EndComp
+$Comp
+L C_Small C31
+U 1 1 59DB74C8
+P 5550 3750
+F 0 "C31" H 5560 3820 50  0000 L CNN
+F 1 "100nF" H 5560 3670 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 5550 3750 50  0001 C CNN
+F 3 "" H 5550 3750 50  0000 C CNN
+	1    5550 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C32
+U 1 1 59DB74FD
+P 6200 3750
+F 0 "C32" H 6210 3820 50  0000 L CNN
+F 1 "220nF" H 6210 3670 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 6200 3750 50  0001 C CNN
+F 3 "" H 6200 3750 50  0000 C CNN
+	1    6200 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L +12V #PWR083
+U 1 1 59DB7699
+P 5100 3150
+F 0 "#PWR083" H 5100 3000 50  0001 C CNN
+F 1 "+12V" H 5100 3290 50  0000 C CNN
+F 2 "" H 5100 3150 50  0000 C CNN
+F 3 "" H 5100 3150 50  0000 C CNN
+	1    5100 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR084
+U 1 1 59DB76B7
+P 5100 4000
+F 0 "#PWR084" H 5100 3750 50  0001 C CNN
+F 1 "GND" H 5100 3850 50  0000 C CNN
+F 2 "" H 5100 4000 50  0000 C CNN
+F 3 "" H 5100 4000 50  0000 C CNN
+	1    5100 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR085
+U 1 1 59DB76D8
+P 5550 4000
+F 0 "#PWR085" H 5550 3750 50  0001 C CNN
+F 1 "GND" H 5550 3850 50  0000 C CNN
+F 2 "" H 5550 4000 50  0000 C CNN
+F 3 "" H 5550 4000 50  0000 C CNN
+	1    5550 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR086
+U 1 1 59DB76F2
+P 6200 4000
+F 0 "#PWR086" H 6200 3750 50  0001 C CNN
+F 1 "GND" H 6200 3850 50  0000 C CNN
+F 2 "" H 6200 4000 50  0000 C CNN
+F 3 "" H 6200 4000 50  0000 C CNN
+	1    6200 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 3150 5100 3250
+Wire Wire Line
+	5100 3450 5100 3650
+Wire Wire Line
+	5100 3850 5100 4000
+Wire Wire Line
+	5550 3650 5550 3550
+Wire Wire Line
+	5100 3550 5800 3550
+Connection ~ 5100 3550
+Connection ~ 5550 3550
+Wire Wire Line
+	6000 3550 6350 3550
+Wire Wire Line
+	6200 3550 6200 3650
+Wire Wire Line
+	6200 3850 6200 4000
+Wire Wire Line
+	5550 3850 5550 4000
+Text HLabel 6350 3550 2    60   Input ~ 0
+BRV_CPU
+Connection ~ 6200 3550
+$EndSCHEMATC

@@ -1,0 +1,21 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ATMEGA1280-A
+D TQFP100, 128k Flash, 8k SRAM, 4k EEPROM, JTAG
+K AVR 8bit Microcontroller MegaAVR
+F http://www.atmel.com/Images/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf
+$ENDCMP
+#
+$CMP ATMEGA2560-A
+D TQFP100, 256k Flash, 8k SRAM, 4k EEPROM, JTAG
+K AVR 8bit Microcontroller MegaAVR
+F http://www.atmel.com/Images/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf
+$ENDCMP
+#
+$CMP ATMEGA640-A
+D TQFP100, 64k Flash, 8k SRAM, 4k EEPROM, JTAG
+K AVR 8bit Microcontroller MegaAVR
+F http://www.atmel.com/Images/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf
+$ENDCMP
+#
+#End Doc Library

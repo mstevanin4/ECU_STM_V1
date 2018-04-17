@@ -1,0 +1,196 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:STM2_ECU-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 9 16
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MPX4250AP U3
+U 1 1 59CE6366
+P 5450 3300
+F 0 "U3" H 5350 3350 60  0000 C CNN
+F 1 "MPX4250AP" H 5550 3450 60  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x06_Pitch2.54mm" H 5550 3450 60  0001 C CNN
+F 3 "" H 5550 3450 60  0000 C CNN
+	1    5450 3300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L C_Small C27
+U 1 1 59CE64B0
+P 6300 3300
+F 0 "C27" H 6310 3370 50  0000 L CNN
+F 1 "100nF" H 6310 3220 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 6300 3300 50  0001 C CNN
+F 3 "" H 6300 3300 50  0000 C CNN
+	1    6300 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C28
+U 1 1 59CE6501
+P 6650 3300
+F 0 "C28" H 6660 3370 50  0000 L CNN
+F 1 "1uF" H 6660 3220 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 6650 3300 50  0001 C CNN
+F 3 "" H 6650 3300 50  0000 C CNN
+	1    6650 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR074
+U 1 1 59CE6561
+P 6900 3050
+F 0 "#PWR074" H 6900 2900 50  0001 C CNN
+F 1 "+5V" H 6900 3190 50  0000 C CNN
+F 2 "" H 6900 3050 50  0000 C CNN
+F 3 "" H 6900 3050 50  0000 C CNN
+	1    6900 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6300 3200 6300 3050
+Wire Wire Line
+	6650 3200 6650 3050
+Wire Wire Line
+	6300 3400 6300 3500
+Wire Wire Line
+	6650 3500 6650 3400
+$Comp
+L GND #PWR075
+U 1 1 59CE65FC
+P 6450 3600
+F 0 "#PWR075" H 6450 3350 50  0001 C CNN
+F 1 "GND" H 6450 3450 50  0000 C CNN
+F 2 "" H 6450 3600 50  0000 C CNN
+F 3 "" H 6450 3600 50  0000 C CNN
+	1    6450 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6450 3500 6450 3600
+Wire Wire Line
+	5900 3150 6150 3150
+Wire Wire Line
+	5900 3050 6900 3050
+Connection ~ 6650 3050
+Connection ~ 6300 3050
+Wire Wire Line
+	6150 3150 6150 3500
+Wire Wire Line
+	6150 3500 6650 3500
+Connection ~ 6300 3500
+Connection ~ 6450 3500
+$Comp
+L C_Small C25
+U 1 1 59CE66F4
+P 5600 3550
+F 0 "C25" H 5610 3620 50  0000 L CNN
+F 1 "100nF" H 5610 3470 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 5600 3550 50  0001 C CNN
+F 3 "" H 5600 3550 50  0000 C CNN
+	1    5600 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR076
+U 1 1 59CE672E
+P 5600 3700
+F 0 "#PWR076" H 5600 3450 50  0001 C CNN
+F 1 "GND" H 5600 3550 50  0000 C CNN
+F 2 "" H 5600 3700 50  0000 C CNN
+F 3 "" H 5600 3700 50  0000 C CNN
+	1    5600 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5900 3250 6000 3250
+Wire Wire Line
+	6000 3250 6000 3550
+Wire Wire Line
+	6000 3450 5600 3450
+Wire Wire Line
+	5600 3650 5600 3700
+$Comp
+L R_Small R60
+U 1 1 59CE676D
+P 6000 3650
+F 0 "R60" H 6030 3670 50  0000 L CNN
+F 1 "470U" H 6030 3610 50  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 6000 3650 50  0001 C CNN
+F 3 "" H 6000 3650 50  0000 C CNN
+	1    6000 3650
+	1    0    0    -1  
+$EndComp
+Connection ~ 6000 3450
+Text HLabel 6050 3900 2    60   Input ~ 0
+MAP_I_CPU
+$Comp
+L C_Small C26
+U 1 1 59CE67F0
+P 6000 4100
+F 0 "C26" H 6010 4170 50  0000 L CNN
+F 1 "100nF" H 6010 4020 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 6000 4100 50  0001 C CNN
+F 3 "" H 6000 4100 50  0000 C CNN
+	1    6000 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR077
+U 1 1 59CE6834
+P 6000 4250
+F 0 "#PWR077" H 6000 4000 50  0001 C CNN
+F 1 "GND" H 6000 4100 50  0000 C CNN
+F 2 "" H 6000 4250 50  0000 C CNN
+F 3 "" H 6000 4250 50  0000 C CNN
+	1    6000 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 4250 6000 4200
+Wire Wire Line
+	6000 4000 6000 3750
+Wire Wire Line
+	6050 3900 6000 3900
+Connection ~ 6000 3900
+$EndSCHEMATC

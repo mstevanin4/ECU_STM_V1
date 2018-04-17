@@ -1,0 +1,218 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:STM2_ECU-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 4 16
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L LM2940IMP-5.0/NOPBCT-ND U1
+U 1 1 59CADC1C
+P 5500 4050
+F 0 "U1" H 5150 4450 60  0000 C CNN
+F 1 "LM2940IMP-5.0/NOPBCT-ND" H 5650 4300 60  0000 C CNN
+F 2 "TO_SOT_Packages_SMD:SOT-223-3_TabPin2" H 5450 4250 60  0001 C CNN
+F 3 "" H 5450 4250 60  0000 C CNN
+	1    5500 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C13
+U 1 1 59CADC74
+P 4350 4300
+F 0 "C13" H 4360 4370 50  0000 L CNN
+F 1 "10uF" H 4360 4220 50  0000 L CNN
+F 2 "Capacitors_SMD:C_1210_HandSoldering" H 4350 4300 50  0001 C CNN
+F 3 "" H 4350 4300 50  0000 C CNN
+	1    4350 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C14
+U 1 1 59CADCB5
+P 4600 4300
+F 0 "C14" H 4610 4370 50  0000 L CNN
+F 1 "100nF" H 4610 4220 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 4600 4300 50  0001 C CNN
+F 3 "" H 4600 4300 50  0000 C CNN
+	1    4600 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C15
+U 1 1 59CADD3A
+P 6150 4300
+F 0 "C15" H 6160 4370 50  0000 L CNN
+F 1 "100nF" H 6160 4220 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 6150 4300 50  0001 C CNN
+F 3 "" H 6150 4300 50  0000 C CNN
+	1    6150 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C16
+U 1 1 59CADD40
+P 6400 4300
+F 0 "C16" H 6410 4370 50  0000 L CNN
+F 1 "47uF" H 6410 4220 50  0000 L CNN
+F 2 "Capacitors_SMD:C_1210_HandSoldering" H 6400 4300 50  0001 C CNN
+F 3 "" H 6400 4300 50  0000 C CNN
+	1    6400 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L D_Schottky_Small D2
+U 1 1 59CADD52
+P 4950 4000
+F 0 "D2" H 4900 4080 50  0000 L CNN
+F 1 "B130-13-F" H 4900 3900 50  0000 L CNN
+F 2 "Diodes_SMD:D_SMA_Handsoldering" V 4950 4000 50  0001 C CNN
+F 3 "" V 4950 4000 50  0000 C CNN
+	1    4950 4000
+	-1   0    0    1   
+$EndComp
+$Comp
+L D_Schottky_Small D3
+U 1 1 59CADDAF
+P 6900 4300
+F 0 "D3" H 6850 4380 50  0000 L CNN
+F 1 "3SMAJ5919B-TP" H 6900 4200 50  0000 L CNN
+F 2 "Diodes_SMD:D_SMA_Handsoldering" V 6900 4300 50  0001 C CNN
+F 3 "" V 6900 4300 50  0000 C CNN
+	1    6900 4300
+	0    1    1    0   
+$EndComp
+$Comp
+L TVS D1
+U 1 1 59CADDFB
+P 4050 4350
+F 0 "D1" H 4050 4500 50  0000 C CNN
+F 1 "ERZ-V14D220" H 4050 4200 50  0000 C CNN
+F 2 "Diodes_ThroughHole:D_DO-41_SOD81_P7.62mm_Horizontal" H 4050 4350 50  0001 C CNN
+F 3 "" H 4050 4350 50  0000 C CNN
+	1    4050 4350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5050 4000 5150 4000
+Wire Wire Line
+	4050 4000 4850 4000
+Wire Wire Line
+	4050 3950 4050 4050
+Wire Wire Line
+	4350 4200 4350 4000
+Connection ~ 4350 4000
+Wire Wire Line
+	4600 4200 4600 4000
+Connection ~ 4600 4000
+Wire Wire Line
+	4050 4650 6900 4650
+Wire Wire Line
+	6900 4650 6900 4400
+Wire Wire Line
+	5400 4400 5400 4650
+Connection ~ 5400 4650
+Wire Wire Line
+	5650 4400 5650 4650
+Connection ~ 5650 4650
+Wire Wire Line
+	6150 4400 6150 4650
+Connection ~ 6150 4650
+Wire Wire Line
+	6400 4400 6400 4650
+Connection ~ 6400 4650
+Wire Wire Line
+	4600 4400 4600 4650
+Connection ~ 4600 4650
+Wire Wire Line
+	4350 4400 4350 4650
+Connection ~ 4350 4650
+Wire Wire Line
+	5900 4000 6900 4000
+Wire Wire Line
+	6900 3950 6900 4200
+Wire Wire Line
+	6150 4200 6150 4000
+Connection ~ 6150 4000
+Wire Wire Line
+	6400 4200 6400 4000
+Connection ~ 6400 4000
+$Comp
+L GND #PWR059
+U 1 1 59CAE08D
+P 5500 4700
+F 0 "#PWR059" H 5500 4450 50  0001 C CNN
+F 1 "GND" H 5500 4550 50  0000 C CNN
+F 2 "" H 5500 4700 50  0000 C CNN
+F 3 "" H 5500 4700 50  0000 C CNN
+	1    5500 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5500 4700 5500 4650
+Connection ~ 5500 4650
+$Comp
+L +12V #PWR060
+U 1 1 59CAE11F
+P 4050 3950
+F 0 "#PWR060" H 4050 3800 50  0001 C CNN
+F 1 "+12V" H 4050 4090 50  0000 C CNN
+F 2 "" H 4050 3950 50  0000 C CNN
+F 3 "" H 4050 3950 50  0000 C CNN
+	1    4050 3950
+	1    0    0    -1  
+$EndComp
+Connection ~ 4050 4000
+$Comp
+L +5V #PWR061
+U 1 1 59CAE49B
+P 6900 3950
+F 0 "#PWR061" H 6900 3800 50  0001 C CNN
+F 1 "+5V" H 6900 4090 50  0000 C CNN
+F 2 "" H 6900 3950 50  0000 C CNN
+F 3 "" H 6900 3950 50  0000 C CNN
+	1    6900 3950
+	1    0    0    -1  
+$EndComp
+Connection ~ 6900 4000
+Text Notes 6400 4200 0    60   ~ 0
+TMK325ABJ476MM-T
+$EndSCHEMATC

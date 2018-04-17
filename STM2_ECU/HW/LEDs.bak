@@ -1,0 +1,168 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:STM2_ECU-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 5 16
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Led_Small D4
+U 1 1 59CBC6F0
+P 4550 3900
+F 0 "D4" H 4500 4025 50  0000 L CNN
+F 1 "SML-211UTT86" H 4375 3800 50  0000 L CNN
+F 2 "LEDs:LED_0805_HandSoldering" V 4550 3900 50  0001 C CNN
+F 3 "" V 4550 3900 50  0000 C CNN
+	1    4550 3900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Led_Small D5
+U 1 1 59CBC7B2
+P 4900 3900
+F 0 "D5" H 4850 4025 50  0000 L CNN
+F 1 "SML-211UTT86" H 4725 3800 50  0000 L CNN
+F 2 "LEDs:LED_0805_HandSoldering" V 4900 3900 50  0001 C CNN
+F 3 "" V 4900 3900 50  0000 C CNN
+	1    4900 3900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Led_Small D6
+U 1 1 59CBC80A
+P 5250 3900
+F 0 "D6" H 5200 4025 50  0000 L CNN
+F 1 "SML-211UTT86" H 5075 3800 50  0000 L CNN
+F 2 "LEDs:LED_0805_HandSoldering" V 5250 3900 50  0001 C CNN
+F 3 "" V 5250 3900 50  0000 C CNN
+	1    5250 3900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R_Small R47
+U 1 1 59CBC886
+P 4550 3400
+F 0 "R47" H 4580 3420 50  0000 L CNN
+F 1 "1K" H 4580 3360 50  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 4550 3400 50  0001 C CNN
+F 3 "" H 4550 3400 50  0000 C CNN
+	1    4550 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L R_Small R48
+U 1 1 59CBC952
+P 4900 3400
+F 0 "R48" H 4930 3420 50  0000 L CNN
+F 1 "680U" H 4930 3360 50  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 4900 3400 50  0001 C CNN
+F 3 "" H 4900 3400 50  0000 C CNN
+	1    4900 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L R_Small R49
+U 1 1 59CBC99B
+P 5250 3400
+F 0 "R49" H 5280 3420 50  0000 L CNN
+F 1 "680U" H 5280 3360 50  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 5250 3400 50  0001 C CNN
+F 3 "" H 5250 3400 50  0000 C CNN
+	1    5250 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4550 3500 4550 3800
+Wire Wire Line
+	4900 3500 4900 3800
+Wire Wire Line
+	5250 3500 5250 3800
+Wire Wire Line
+	4550 4000 4550 4150
+Wire Wire Line
+	4550 4150 5250 4150
+Wire Wire Line
+	5250 4150 5250 4000
+Wire Wire Line
+	4900 4000 4900 4250
+Connection ~ 4900 4150
+$Comp
+L GND #PWR062
+U 1 1 59CBC9FF
+P 4900 4250
+F 0 "#PWR062" H 4900 4000 50  0001 C CNN
+F 1 "GND" H 4900 4100 50  0000 C CNN
+F 2 "" H 4900 4250 50  0000 C CNN
+F 3 "" H 4900 4250 50  0000 C CNN
+	1    4900 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L +12V #PWR063
+U 1 1 59CCBE79
+P 4550 3250
+F 0 "#PWR063" H 4550 3100 50  0001 C CNN
+F 1 "+12V" H 4550 3390 50  0000 C CNN
+F 2 "" H 4550 3250 50  0000 C CNN
+F 3 "" H 4550 3250 50  0000 C CNN
+	1    4550 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR064
+U 1 1 59CCBE99
+P 4900 3250
+F 0 "#PWR064" H 4900 3100 50  0001 C CNN
+F 1 "+5V" H 4900 3390 50  0000 C CNN
+F 2 "" H 4900 3250 50  0000 C CNN
+F 3 "" H 4900 3250 50  0000 C CNN
+	1    4900 3250
+	1    0    0    -1  
+$EndComp
+Text HLabel 5250 3250 1    60   Input ~ 0
+DEBUG_CPU
+Wire Wire Line
+	4550 3250 4550 3300
+Wire Wire Line
+	4900 3250 4900 3300
+Wire Wire Line
+	5250 3250 5250 3300
+$EndSCHEMATC
