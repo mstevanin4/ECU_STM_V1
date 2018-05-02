@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<msq xmlns="http://www.msefi.com/:msq">
+<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="&lt;html&gt;Restore Point: Before loading C:\Users\admin\Documents\GitHub\ECU_STM_V1\STM2_ECU\SW\TestBench_SW\TestBench_STM_V1\reference\Speeduino base tune.msq to STM_TestBench_v1 - &lt;br&gt;" writeDate="Mon Apr 30 10:12:03 CEST 2018"/>
+<versionInfo fileFormat="5.0" firmwareInfo="" nPages="10" signature="speeduino 201712"/>
+<page/>
+<page number="0" size="288"/>
+<page number="1" size="128">
+<constant name="pinLayout">"ECU_STM2_V1"</constant>
+<constant name="mapSample">"Instantaneous"</constant>
+<constant name="twoStroke">"Four-stroke"</constant>
+<constant name="injType">"Port"</constant>
+<constant name="nCylinders">"1"</constant>
+<constant name="nInjectors">"1"</constant>
+</page>
+<page number="2" size="288"/>
+<page number="3" size="128"/>
+<page number="4" size="288"/>
+<page number="5" size="128"/>
+<page number="6" size="240"/>
+<page number="7" size="192"/>
+<page number="8" size="128"/>
+<page number="9" size="192"/>
+<settings Comment="These setting are only used if this msq is opened without a project.">
+<setting name="enablehardware_test_OFF" value="enablehardware_test_OFF"/>
+<setting name="SPEED_DENSITY" value="SPEED_DENSITY"/>
+<setting name="CAN_COMMANDS_OFF" value="CAN_COMMANDS_OFF"/>
+<setting name="CELSIUS" value="CELSIUS"/>
+<setting name="AFR" value="AFR"/>
+</settings>
+<userComments Comment="These are user comments that can be related to a particular setting or dialog."/>
+</msq>

@@ -1,0 +1,30 @@
+#Project Attributes.
+#TunerStudio by EFI Analytics, Inc
+#Last Saved on: Mon Apr 30 10:25:43 CEST 2018
+#Mon Apr 30 10:25:43 CEST 2018
+Triggers.ActiveTriggers=
+commPort=COM1
+ecuSettings=AFR|CAN_COMMANDS_OFF|CELSIUS|SPEED_DENSITY|enablehardware_test_OFF|
+canId=0
+selectedComDriver=Multi Interface MegaSquirt Driver
+projectDescription=
+projectName=STM_TestBench_v1
+protocolEnvelope=
+CommSettingCom\ Port=COM1
+engine_constantsEngine\ Constants_height=524
+ecuConfigFile=mainController.ini
+CommSettingBaud\ Rate=115200
+CommSettingMSCommDriver.RS232\ Serial\ InterfaceBluetooth\ Port=false
+CommSettingMSCommDriver.controllerInterfaceId=RS232 Serial Interface
+engine_constantsEngine\ Constants_width=583
+CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM1
+dashBoardFile=\\dashboard\\\\dashboard.dash
+CommSettingMSCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM1
+engine_constantsEngine\ Constants_Y=122
+CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceBluetooth\ Port=false
+engine_constantsEngine\ Constants_X=391
+tuneFileDir=C\:\\Users\\admin\\Documents\\GitHub\\ECU_STM_V1\\STM2_ECU\\SW\\TestBench_SW\\TestBench_STM_V1\\reference
+CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceBaud\ Rate=115200
+CommSettingMSCommDriver.RS232\ Serial\ InterfaceBaud\ Rate=115200
+baudRate=115200
+CommSettingPC-MARCCommDriver.controllerInterfaceId=RS232 Serial Interface
