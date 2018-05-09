@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <msq xmlns="http://www.msefi.com/:msq">
-<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="" writeDate="Wed May 09 20:01:50 CEST 2018"/>
+<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="&lt;html&gt;Restore Point: User Requested Save of Settings - &lt;br&gt;" writeDate="Wed May 09 20:01:50 CEST 2018"/>
 <versionInfo fileFormat="5.0" firmwareInfo="Speeduino+2017.12" nPages="10" signature="ThunderStorm ECU by M.Stevanin"/>
 <page>
 <pcVariable name="tsCanId">"CAN ID 0"</pcVariable>
