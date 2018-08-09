@@ -493,10 +493,33 @@ void sendValues(uint16_t offset, uint16_t packetLength, byte cmd, byte portNum)
   fullStatus[84] = currentStatus.nChannels;
   fullStatus[85] = lowByte(currentStatus.loadOnTbCell1); // Load on dyno Cell TB_STM2
   fullStatus[86] = highByte(currentStatus.loadOnTbCell1); // Load on dyno Cell TB_STM2
-  fullStatus[87] = lowByte(currentStatus.TqOnCell1); // Torque on dyno Cell TB_STM2
-  fullStatus[88] = highByte(currentStatus.TqOnCell1); // Torque on dyno Cell TB_STM2
-  fullStatus[89] = lowByte(currentStatus.TqOnCell2); // Torque on dyno Cell TB_STM2
-  fullStatus[90] = highByte(currentStatus.TqOnCell2); // Torque on dyno Cell TB_STM2
+  fullStatus[87] = lowByte(currentStatus.loadOnTbCell2); // Load on dyno Cell TB_STM2
+  fullStatus[88] = highByte(currentStatus.loadOnTbCell2); // Load on dyno Cell TB_STM2
+  
+  fullStatus[89] = lowByte(currentStatus.TqOnCell1); // Torque on dyno Cell TB_STM2
+  fullStatus[90] = highByte(currentStatus.TqOnCell1); // Torque on dyno Cell TB_STM2
+  fullStatus[91] = lowByte(currentStatus.TqOnCell2); // Torque on dyno Cell TB_STM2
+  fullStatus[92] = highByte(currentStatus.TqOnCell2); // Torque on dyno Cell TB_STM2
+  fullStatus[93] = lowByte(currentStatus.AvgTqOnCell); // Torque on dyno Cell TB_STM2
+  fullStatus[94] = highByte(currentStatus.AvgTqOnCell); // Torque on dyno Cell TB_STM2
+  fullStatus[95] = lowByte(currentStatus.AvgTqAtEng); // Torque at engine TB_STM2
+  fullStatus[96] = highByte(currentStatus.AvgTqAtEng); // Torque at engine TB_STM2
+  
+  fullStatus[97] = lowByte(currentStatus.TbRPM1); // RPM on dyno Cell TB_STM2
+  fullStatus[98] = highByte(currentStatus.TbRPM1); // RPM on dyno Cell TB_STM2
+  fullStatus[99] = lowByte(currentStatus.TbRPM2); // RPM on dyno Cell TB_STM2
+  fullStatus[100] = highByte(currentStatus.TbRPM2); // RPM on dyno Cell TB_STM2
+  fullStatus[101] = lowByte(currentStatus.AvgTbRPM); // RPM on dyno Cell TB_STM2
+  fullStatus[102] = highByte(currentStatus.AvgTbRPM); // RPM on dyno Cell TB_STM2
+  fullStatus[103] = lowByte(currentStatus.engRPMInTbMode); // RPM on Engine TB_STM2
+  fullStatus[104] = highByte(currentStatus.engRPMInTbMode); // RPM on Engine TB_STM2
+  
+  fullStatus[105] = lowByte(currentStatus.PwrOnRetarder1); // Power on dyno Cell TB_STM2
+  fullStatus[106] = highByte(currentStatus.PwrOnRetarder1); // Power on dyno Cell TB_STM2
+  fullStatus[107] = lowByte(currentStatus.PwrOnRetarder2); // Power on dyno Cell TB_STM2
+  fullStatus[108] = highByte(currentStatus.PwrOnRetarder2); // Power on dyno Cell TB_STM2
+  fullStatus[109] = lowByte(currentStatus.AvgPwrOnRetarder); // Power on dyno Cell TB_STM2
+  fullStatus[110] = highByte(currentStatus.AvgPwrOnRetarder); // Power on dyno Cell TB_STM2
 
   for(byte x=0; x<packetLength; x++)
   {

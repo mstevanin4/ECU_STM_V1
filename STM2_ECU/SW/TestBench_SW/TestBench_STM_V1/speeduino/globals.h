@@ -288,10 +288,26 @@ volatile byte LOOP_TIMER;
 
 //long calibrationFactor1 = -66700;// TB_STM2
 long calibrationFactorOld1 = -66700; // TB_STM2
+long calibrationFactorOld2 = -66700; // TB_STM2
 long TqOnCell1_long = 0;
+long TqOnCell2_long = 0;
+long PwrOnRetarder1_long;
+long PwrOnRetarder2_long;
+uint8_t TbTooth1 = 0;
+uint8_t TbTooth2 = 0;
+uint8_t TbNrOfTooth1 = 40;
+uint8_t TbNrOfTooth2 = 40;
+unsigned long curTbTime1;
+unsigned long curTbTime2;
+unsigned long oldcurTbTime1;
+unsigned long oldcurTbTime2;
+unsigned long TiSinceLstTooth1;
+unsigned long TiSinceLstTooth2;
+unsigned long TbSpd1;
+unsigned long TbSpd2;
 
 //The status struct contains the current values for all 'live' variables
-//In current version this is 64 bytes TB_STM2 change it to 74 bytes
+//In current version this is 64 bytes TB_STM2 change it to 76 bytes
 struct statuses {
   volatile bool hasSync;
   uint16_t RPM;
@@ -375,11 +391,16 @@ struct statuses {
   int loadOnTbCell1; // TB_STM2 this is the equivalent raw mass on the dyno Cell in [Kg/100]
   int loadOnTbCell2; // TB_STM2 this is the equivalent raw mass on the dyno Cell in [Kg/100]
   uint16_t engRPMInTbMode;  // TB_STM2 this value will be calculated from dyno speed using a factor according to gear ratio
-  uint16_t TbRPM1;  // TB_STM2 this value is measured from each speed sensor on each retarder
+  uint16_t TbRPM1 = 4000;  // TB_STM2 this value is measured from each speed sensor on each retarder
   uint16_t TbRPM2;  // TB_STM2 this value is measured from each speed sensor on each retarder
-  int TqOnCell1; // TB_STM2 this is the equivalent raw mass on the dyno Cell in [Kg/100]
-  int TqOnCell2; // TB_STM2 this is the equivalent raw mass on the dyno Cell in [Kg/100]
-  
+  uint16_t AvgTbRPM;
+  int TqOnCell1; // TB_STM2 this is the equivalent raw mass on the dyno Cell in [Nm/10]
+  int TqOnCell2; // TB_STM2 this is the equivalent raw mass on the dyno Cell in [Nm/10]
+  int AvgTqOnCell; // TB_STM2 this is the mean of torque on each cell
+  int AvgTqAtEng; // TB_STM2 this is the calculated torque at engine (higher than AvgTqOnCell because of the gear ratio)
+  int PwrOnRetarder1; // TB_STM2 this is the Power absorbed by rearter 1 [HP/10]
+  int PwrOnRetarder2; // TB_STM2 this is the Power absorbed by rearter 2 [HP/10]
+  int AvgPwrOnRetarder;
 
   //Helpful bitwise operations:
   //Useful reference: http://playground.arduino.cc/Code/BitMath
@@ -809,6 +830,9 @@ byte pinIgnBypass; //The pin used for an ignition bypass (Optional)
 byte pinFlex; //Pin with the flex sensor attached
 byte pinBaro; //Pin that an external barometric pressure sensor is attached to (If used)
 byte pinResetControl; // Output pin used control resetting the Arduino
+
+byte pinTbSpd1 = 18; // TB_STM2
+byte pinTbSpd2 = 19; // TB_STM2
 
 // global variables // from speeduino.ino
 extern struct statuses currentStatus; // from speeduino.ino

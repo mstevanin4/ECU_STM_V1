@@ -12,7 +12,7 @@
 #define canbusPage   9//Config Page 9
 #define warmupPage   10 //Config Page 10
 
-#define SERIAL_PACKET_SIZE   91//89 //Must match ochBlockSize in ini file TB_STM2 changed that!!!
+#define SERIAL_PACKET_SIZE   111//91//89 //Must match ochBlockSize in ini file TB_STM2 changed that!!!
 
 byte currentPage = 1;//Not the same as the speeduino config page numbers
 bool isMap = true;

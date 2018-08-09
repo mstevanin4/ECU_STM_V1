@@ -49,8 +49,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <FlexCAN.h>
 #endif
 
-#define DOUT1  50 //TB_STM2
-#define CLK1  51  //TB_STM2
+#define DOUT1  63 // correpond to A9 //TB_STM2
+#define CLK1  64  // correpond to A10 //TB_STM2
+#define DOUT2  54 // correpond to A0 //TB_STM2
+#define CLK2  55  // correpond to A1 //TB_STM2
 //#define calibration_factor -66700.0  //TB_STM2 now use long value from TS
 
 struct config2 configPage2;
@@ -75,6 +77,9 @@ bool fuelPumpOn = false; //The current status of the fuel pump
 
 
 HX711 scale(DOUT1, CLK1); //TB_STM2
+void getTbSpd1();         //TB_STM2
+HX711 scale2(DOUT2, CLK2); //TB_STM2
+void getTbSpd2();         //TB_STM2
 
 void (*trigger)(); //Pointer for the trigger function (Gets pointed to the relevant decoder)
 void (*triggerSecondary)(); //Pointer for the secondary trigger function (Gets pointed to the relevant decoder)
@@ -157,6 +162,9 @@ bool initialisationComplete = false; //Tracks whether the setup() functino has r
 
 void setup()
 {
+  
+  attachInterrupt(digitalPinToInterrupt(pinTbSpd1), getTbSpd1, RISING); //TB_STM2
+  attachInterrupt(digitalPinToInterrupt(pinTbSpd2), getTbSpd2, RISING); //TB_STM2
   currentStatus.loadOnTbCell1 = 169;  // TB_STM2 for test purpose
   pinMode(46, OUTPUT);  //ECU_STM2
   digitalWrite(46, LOW);  //ECU_STM2
@@ -179,6 +187,7 @@ void setup()
   doUpdates(); //Check if any data items need updating (Occurs ith firmware updates)
 
   scale.set_scale((float)configPage4.calibrationFactor1); //This value is obtained by using the SparkFun_HX711_Calibration sketch TB_STM2
+  scale2.set_scale((float)configPage4.calibrationFactor2); //This value is obtained by using the SparkFun_HX711_Calibration sketch TB_STM2
 
   //Always start with a clean slate on the bootloader capabilities level
   //This should be 0 until we hear otherwise from the 16u2
@@ -824,12 +833,42 @@ void loop()
         scale.set_scale((float)configPage4.calibrationFactor1);
         calibrationFactorOld1 = configPage4.calibrationFactor1;
       }
+      if (configPage4.calibrationFactor2 != calibrationFactorOld2)// TB_STM2 do a calibration in case interaction with the TS user
+      {
+        scale2.set_scale((float)configPage4.calibrationFactor2);
+        calibrationFactorOld2 = configPage4.calibrationFactor2;
+      }
+      noInterrupts();
       if (scale.is_ready())
         currentStatus.loadOnTbCell1 = (int) ((scale.get_units() * 100)- configPage4.tareValue1);    //TB_STM2
-      TqOnCell1_long = (long)(981 * currentStatus.loadOnTbCell1)*0.01;
+      if (scale2.is_ready())
+        currentStatus.loadOnTbCell2 = (int) ((scale2.get_units() * 100)- configPage4.tareValue2);    //TB_STM2
+      interrupts();
+      // Torque calculation
+      //===========================================================================0
+      TqOnCell1_long = (981 * (long)currentStatus.loadOnTbCell1)*0.01;
       TqOnCell1_long = TqOnCell1_long * configPage4.TbCellDist1;
-      TqOnCell1_long = TqOnCell1_long *0.001;
+      TqOnCell1_long = TqOnCell1_long *0.0001;  //TqOnCell1_long its unit is Nm/10
       currentStatus.TqOnCell1 = (int) TqOnCell1_long;
+      
+      TqOnCell2_long = (981 * (long)currentStatus.loadOnTbCell2)*0.01;
+      TqOnCell2_long = TqOnCell2_long * configPage4.TbCellDist2;
+      TqOnCell2_long = TqOnCell2_long *0.0001;  //TqOnCell2_long its unit is Nm/10
+      currentStatus.TqOnCell2 = (int) TqOnCell2_long;
+      // Speed calculation
+      //===========================================================================
+      currentStatus.TbRPM1 = (uint16_t)TbSpd1;
+      currentStatus.TbRPM2 = (uint16_t)TbSpd2;
+      // Power calculation
+      //===========================================================================0
+      PwrOnRetarder1_long = TqOnCell1_long * currentStatus.TbRPM1;
+      PwrOnRetarder1_long = PwrOnRetarder1_long * 0.000142379;  // (2*pi/60) * 1.35962 / 1000
+      currentStatus.PwrOnRetarder1 = (int) PwrOnRetarder1_long;
+      
+      PwrOnRetarder2_long = TqOnCell2_long * currentStatus.TbRPM2;
+      PwrOnRetarder2_long = PwrOnRetarder2_long * 0.000142379;  // (2*pi/60) * 1.35962 / 1000
+      currentStatus.PwrOnRetarder2 = (int) PwrOnRetarder2_long;
+      
       mainLoopCount++;
       LOOP_TIMER = TIMER_mask;
       //Check for any requets from serial. Serial operations are checked under 2 scenarios:
@@ -1841,6 +1880,28 @@ void loop()
       BIT_CLEAR(currentStatus.status3, BIT_STATUS3_RESET_PREVENT);
     }
 } //loop()
+
+void getTbSpd1()
+{
+  oldcurTbTime1 = curTbTime1;
+  curTbTime1 = micros();
+  TiSinceLstTooth1 = curTbTime1 - oldcurTbTime1;
+  TbSpd1 = TiSinceLstTooth1 * TbNrOfTooth1;
+  TbSpd1 = 60000000/TbSpd1;
+  TbTooth1++;
+  
+}
+
+void getTbSpd2()
+{
+  oldcurTbTime2 = curTbTime2;
+  curTbTime2 = micros();
+  TiSinceLstTooth2 = curTbTime2 - oldcurTbTime2;
+  TbSpd2 = TiSinceLstTooth2 * TbNrOfTooth2;
+  TbSpd2 = 60000000/TbSpd2;
+  TbTooth2++;
+  
+}
 
 /*
   This function retuns a pulsewidth time (in us) given the following:

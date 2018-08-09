@@ -330,8 +330,10 @@ void setPinMapping(byte boardID)
       pinCoil3 = 13; //Pin for coil 3
       pinCoil4 = 53; //Pin for coil 4
       pinCoil5 = 11; //Pin for coil 5 PLACEHOLDER value for now
-      pinTrigger = 18; //The CAS pin
-      pinTrigger2 = 19; //The Cam Sensor pin
+      pinTrigger = 7; //The CAS pin TB_STM2 put this to a unused pin
+      pinTrigger2 = 8; //The Cam Sensor pin TB_STM2 put this to a unused pin
+      pinTbSpd1 = 18;
+      pinTbSpd2 = 19;
       pinTPS = A12;//TPS input pin
       pinMAP = A5; //MAP sensor pin
       pinIAT = A7; //IAT sensor pin
