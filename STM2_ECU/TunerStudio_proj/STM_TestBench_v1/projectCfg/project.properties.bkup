@@ -1,30 +1,52 @@
 #Project Attributes.
 #TunerStudio by EFI Analytics, Inc
-#Last Saved on: Mon Apr 30 10:25:43 CEST 2018
-#Mon Apr 30 10:25:43 CEST 2018
-Triggers.ActiveTriggers=
+#Last Saved on: Sat Jul 28 17:22:19 CEST 2018
+#Sat Jul 28 17:22:19 CEST 2018
+CommSettingMSCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM18
 commPort=COM1
-ecuSettings=AFR|CAN_COMMANDS_OFF|CELSIUS|SPEED_DENSITY|enablehardware_test_OFF|
-canId=0
-selectedComDriver=Multi Interface MegaSquirt Driver
-projectDescription=
-projectName=STM_TestBench_v1
-protocolEnvelope=
-CommSettingCom\ Port=COM1
-engine_constantsEngine\ Constants_height=524
-ecuConfigFile=mainController.ini
-CommSettingBaud\ Rate=115200
-CommSettingMSCommDriver.RS232\ Serial\ InterfaceBluetooth\ Port=false
 CommSettingMSCommDriver.controllerInterfaceId=RS232 Serial Interface
-engine_constantsEngine\ Constants_width=583
-CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM1
-dashBoardFile=\\dashboard\\\\dashboard.dash
-CommSettingMSCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM1
-engine_constantsEngine\ Constants_Y=122
+CommSettingBaud\ Rate=115200
+canId=0
+engine_constantsSpeed\ Controller\ Settings_Y=-858
+engine_constantsSpeed\ Controller\ Settings_X=857
 CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceBluetooth\ Port=false
-engine_constantsEngine\ Constants_X=391
-tuneFileDir=C\:\\Users\\admin\\Documents\\GitHub\\ECU_STM_V1\\STM2_ECU\\SW\\TestBench_SW\\TestBench_STM_V1\\reference
-CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceBaud\ Rate=115200
 CommSettingMSCommDriver.RS232\ Serial\ InterfaceBaud\ Rate=115200
-baudRate=115200
+Triggers.ActiveTriggers=
+LaunchControlLaunch\ Control\ /\ Flat\ shift_Y=123
+projectDescription=
+LaunchControlLaunch\ Control\ /\ Flat\ shift_X=489
+engine_constantsSpeed\ Controller\ Settings_height=524
+CommSettingCom\ Port=COM1
 CommSettingPC-MARCCommDriver.controllerInterfaceId=RS232 Serial Interface
+baudRate=115200
+engine_constantsEngine\ Constants_height=524
+engine_constantsEngine\ Constants_Y=122
+engine_constantsEngine\ Constants_X=391
+protocolEnvelope=
+RevLimiterSRev\ Limiter_width=388
+ecuConfigFile=mainController.ini
+triggerSettingsTrigger\ Settings_width=452
+sparkSettingsSpark\ Settings_Y=199
+sparkSettingsSpark\ Settings_X=131
+tuneFileDir=C\:\\Users\\admin\\Documents\\GitHub\\ECU_STM_V1\\STM2_ECU\\TunerStudio_proj\\STM_TestBench_v1
+firmwareDescription=Speeduino 2018.4
+CommSettingMSCommDriver.RS232\ Serial\ InterfaceBluetooth\ Port=false
+sparkSettingsSpark\ Settings_width=388
+logFileDir=C\:\\Users\\admin\\Documents\\GitHub\\ECU_STM_V1\\STM2_ECU\\TunerStudio_proj\\STM_TestBench_v1\\DataLogs
+CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM18
+RevLimiterSRev\ Limiter_Y=201
+RevLimiterSRev\ Limiter_X=383
+LaunchControlLaunch\ Control\ /\ Flat\ shift_height=522
+sparkSettingsSpark\ Settings_height=409
+engine_constantsSpeed\ Controller\ Settings_width=583
+CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceBaud\ Rate=115200
+LaunchControlLaunch\ Control\ /\ Flat\ shift_width=388
+selectedComDriver=Multi Interface MegaSquirt Driver
+RevLimiterSRev\ Limiter_height=366
+engine_constantsEngine\ Constants_width=583
+ecuSettings=AFR|CAN_COMMANDS_OFF|CELSIUS|SPEED_DENSITY|enablehardware_test_OFF|resetcontrol_standard|
+projectName=STM_TestBench_v1
+triggerSettingsTrigger\ Settings_Y=42
+triggerSettingsTrigger\ Settings_X=457
+dashBoardFile=\\dashboard\\\\dashboard.dash
+triggerSettingsTrigger\ Settings_height=650
