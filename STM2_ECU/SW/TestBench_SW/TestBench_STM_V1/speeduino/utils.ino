@@ -325,7 +325,7 @@ void setPinMapping(byte boardID)
       pinInjector3 = 6; //Output pin injector 3 is on
       pinInjector4 = 9; //Output pin injector 4 is on
       pinInjector5 = 16; //Output pin injector 5 is on
-      pinCoil1 = 12; //Pin for coil 1
+      pinCoil1 = 10; //Pin for coil 1
       pinCoil2 = 10; //Pin for coil 2
       pinCoil3 = 13; //Pin for coil 3
       pinCoil4 = 53; //Pin for coil 4
@@ -344,7 +344,7 @@ void setPinMapping(byte boardID)
       pinTachOut = 24; //Tacho output pin  (Goes to ULN2803)
       pinIdle1 = 48; //Single wire idle control !!changed ECU_STM2!!!
       pinIdle2 = 49; //2 wire idle control !! changed ECU_STM2!!!
-      pinBoost = 17; //Boost control changed for ECU_STM2
+      pinBoost = 17;//TB_STM2 changed //Boost control changed for ECU_STM2
       //pinVVT_1 = 4; //Default VVT output  NOT DEFINE ECU_STM2!!!
       pinFuelPump = 5; //Fuel pump output
       //pinStepperDir = 48; //Direction pin  for DRV8825 driver

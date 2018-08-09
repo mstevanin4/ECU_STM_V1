@@ -822,6 +822,8 @@ void setup()
   setFuelSchedule4(100, (unsigned long)(configPage2.primePulse * 100));
 
   initialisationComplete = true;
+  pinMode(44
+  , OUTPUT); //TB_STM2 correspond to IGN1 for brake control
   pinMode(46, OUTPUT);  //ECU_STM2
   digitalWrite(46, HIGH);  //ECU_STM2
 }
@@ -868,6 +870,13 @@ void loop()
       PwrOnRetarder2_long = TqOnCell2_long * currentStatus.TbRPM2;
       PwrOnRetarder2_long = PwrOnRetarder2_long * 0.000142379;  // (2*pi/60) * 1.35962 / 1000
       currentStatus.PwrOnRetarder2 = (int) PwrOnRetarder2_long;
+      // Brake Control
+      //==============================================================================
+      if (configPage4.byPassCtrlVolt != byPassCtrlVoltOld)// TB_STM2
+      {
+        analogWrite(46, map(configPage4.byPassCtrlVolt, 0, 65535, 0, 255));
+        byPassCtrlVoltOld = configPage4.byPassCtrlVolt;
+      }
       
       mainLoopCount++;
       LOOP_TIMER = TIMER_mask;

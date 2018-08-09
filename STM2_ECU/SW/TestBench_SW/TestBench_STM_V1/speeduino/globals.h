@@ -305,6 +305,7 @@ unsigned long TiSinceLstTooth1;
 unsigned long TiSinceLstTooth2;
 unsigned long TbSpd1;
 unsigned long TbSpd2;
+uint16_t byPassCtrlVoltOld = 0;
 
 //The status struct contains the current values for all 'live' variables
 //In current version this is 64 bytes TB_STM2 change it to 76 bytes
@@ -577,8 +578,9 @@ struct config4 {
   long calibrationFactor2;  //TB_STM2 value that will be substract to raw value from cell
   uint16_t TbCellDist1;  //TB_STM2 this is the distance of the load cell from center of the retarders in mm
   uint16_t TbCellDist2;  //TB_STM2
+  uint16_t byPassCtrlVolt;
 
-  byte unused2_64[48];  // TB_STM2 should reduce unused size if value is added in this page
+  byte unused2_64[46];  // TB_STM2 should reduce unused size if value is added in this page
 
 #if defined(CORE_AVR)
   };
