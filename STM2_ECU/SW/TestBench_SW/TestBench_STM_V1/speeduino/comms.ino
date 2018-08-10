@@ -520,6 +520,9 @@ void sendValues(uint16_t offset, uint16_t packetLength, byte cmd, byte portNum)
   fullStatus[108] = highByte(currentStatus.PwrOnRetarder2); // Power on dyno Cell TB_STM2
   fullStatus[109] = lowByte(currentStatus.AvgPwrOnRetarder); // Power on dyno Cell TB_STM2
   fullStatus[110] = highByte(currentStatus.AvgPwrOnRetarder); // Power on dyno Cell TB_STM2
+  fullStatus[111] = lowByte(currentStatus.SpdDe); // 
+  fullStatus[112] = highByte(currentStatus.SpdDe); //
+  fullStatus[113] = currentStatus.BrkCtrlOut;
 
   for(byte x=0; x<packetLength; x++)
   {

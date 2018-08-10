@@ -308,9 +308,14 @@ unsigned long TiSinceLstTooth2;
 unsigned long TbSpd1;
 unsigned long TbSpd2;
 uint8_t byPassCtrlVoltOld = 0;
+unsigned long engRPMIntTbMode_long = 0;
+long SpdDeIntgl = 0;
+long CtrlPropPart = 0;
+long CtrlIntglPart = 0;
+long BrkCtrlOut_long = 0;
 
 //The status struct contains the current values for all 'live' variables
-//In current version this is 64 bytes TB_STM2 change it to 76 bytes
+//In current version this is 64 bytes TB_STM2 change it to 79 bytes
 struct statuses {
   volatile bool hasSync;
   uint16_t RPM;
@@ -404,6 +409,10 @@ struct statuses {
   int PwrOnRetarder1; // TB_STM2 this is the Power absorbed by rearter 1 [HP/10]
   int PwrOnRetarder2; // TB_STM2 this is the Power absorbed by rearter 2 [HP/10]
   int AvgPwrOnRetarder;
+
+  int SpdDe;
+  uint8_t BrkCtrlOut;
+  
 
   //Helpful bitwise operations:
   //Useful reference: http://playground.arduino.cc/Code/BitMath
@@ -581,8 +590,13 @@ struct config4 {
   uint16_t TbCellDist1;  //TB_STM2 this is the distance of the load cell from center of the retarders in mm
   uint16_t TbCellDist2;  //TB_STM2
   uint8_t byPassCtrlVolt;
+  uint16_t GearRatio;
+  uint16_t EngSpdSp;
+  uint8_t SpdCtrlClcnPer;
+  uint8_t CtrlKp;
+  uint8_t CtrlTi;
 
-  byte unused2_64[47];  // TB_STM2 should reduce unused size if value is added in this page
+  byte unused2_64[40];  // TB_STM2 should reduce unused size if value is added in this page
 
 #if defined(CORE_AVR)
 };

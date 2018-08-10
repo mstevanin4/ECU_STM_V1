@@ -864,6 +864,10 @@ void loop()
       //===========================================================================
       currentStatus.TbRPM1 = (uint16_t)TbSpd1;
       currentStatus.TbRPM2 = (uint16_t)TbSpd2;
+      currentStatus.AvgTbRPM = (currentStatus.TbRPM1 + currentStatus.TbRPM2)/2;
+      engRPMIntTbMode_long = currentStatus.AvgTbRPM;
+      engRPMIntTbMode_long = (engRPMIntTbMode_long * configPage4.GearRatio)/100;
+      currentStatus.engRPMInTbMode = (uint16_t)engRPMIntTbMode_long;
       // Power calculation
       //===========================================================================0
       PwrOnRetarder1_long = TqOnCell1_long * currentStatus.TbRPM1;
@@ -873,13 +877,46 @@ void loop()
       PwrOnRetarder2_long = TqOnCell2_long * currentStatus.TbRPM2;
       PwrOnRetarder2_long = PwrOnRetarder2_long * 0.000142379;  // (2*pi/60) * 1.35962 / 1000
       currentStatus.PwrOnRetarder2 = (int) PwrOnRetarder2_long;
-      // Brake Control
-      //==============================================================================
-      if (configPage4.byPassCtrlVolt != byPassCtrlVoltOld)// TB_STM2
+
+      //PI Controler Brake Controller
+      //===============================================================================
+      if (configPage4.byPassCtrlVolt == 0)
       {
-        analogWrite(46, configPage4.byPassCtrlVolt);
-        analogWrite(44, configPage4.byPassCtrlVolt);
-        byPassCtrlVoltOld = configPage4.byPassCtrlVolt;
+        if (configPage4.byPassCtrlVolt != byPassCtrlVoltOld)
+        {
+          SpdDeIntgl = 0;
+          byPassCtrlVoltOld = configPage4.byPassCtrlVolt;
+        }
+        
+        currentStatus.SpdDe = currentStatus.engRPMInTbMode - configPage4.EngSpdSp;
+        if ((mainLoopCount % configPage4.SpdCtrlClcnPer) == 0)
+        {
+          CtrlPropPart = currentStatus.SpdDe * configPage4.CtrlKp;
+          if ((currentStatus.BrkCtrlOut > 0) && (currentStatus.BrkCtrlOut < 100)) // this is a simple Anti Windup
+            SpdDeIntgl = SpdDeIntgl + currentStatus.SpdDe;
+          CtrlIntglPart = SpdDeIntgl * configPage4.CtrlTi * configPage4.CtrlKp;
+          BrkCtrlOut_long = CtrlPropPart + CtrlIntglPart;
+          if (BrkCtrlOut_long < -50000)
+            currentStatus.BrkCtrlOut = 0;
+          else if (BrkCtrlOut_long > 50000)
+            currentStatus.BrkCtrlOut = 100;
+          else
+            currentStatus.BrkCtrlOut = (uint8_t) ((BrkCtrlOut_long/1000)+50);
+          analogWrite(46, 155 + currentStatus.BrkCtrlOut);
+          analogWrite(44, 155 + currentStatus.BrkCtrlOut);
+        }
+      }
+      else
+      {
+        configPage4.EngSpdSp = currentStatus.engRPMInTbMode;
+        // Brake Control
+        //==============================================================================
+        if (configPage4.byPassCtrlVolt != byPassCtrlVoltOld)// TB_STM2
+        {
+          analogWrite(46, configPage4.byPassCtrlVolt);
+          analogWrite(44, configPage4.byPassCtrlVolt);
+          byPassCtrlVoltOld = configPage4.byPassCtrlVolt;
+      }
       }
       
       mainLoopCount++;
