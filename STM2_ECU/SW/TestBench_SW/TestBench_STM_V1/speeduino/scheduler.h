@@ -300,7 +300,7 @@ See page 136 of the processors datasheet: http://www.atmel.com/Images/doc2549.pd
     #define IGN3_COMPARE (TIMER3->regs).gen->CCR3
     #define IGN4_COMPARE (TIMER3->regs).gen->CCR4
 
-#ifndef SMALL_FLASH_MODE
+/*#ifndef SMALL_FLASH_MODE
     #define FUEL5_COUNTER (TIMER5->regs).gen->CNT
     #define FUEL6_COUNTER (TIMER5->regs).gen->CNT
     #define FUEL7_COUNTER (TIMER5->regs).gen->CNT
@@ -320,7 +320,7 @@ See page 136 of the processors datasheet: http://www.atmel.com/Images/doc2549.pd
     #define IGN6_COMPARE (TIMER4->regs).gen->CCR2
     #define IGN7_COMPARE (TIMER4->regs).gen->CCR3
     #define IGN8_COMPARE (TIMER4->regs).gen->CCR4
-#endif
+#endif*/
     //https://github.com/rogerclarkmelbourne/Arduino_STM32/blob/754bc2969921f1ef262bd69e7faca80b19db7524/STM32F1/system/libmaple/include/libmaple/timer.h#L444
     #define FUEL1_TIMER_ENABLE() (TIMER2->regs).gen->CCER |= TIMER_CCER_CC1E
     #define FUEL2_TIMER_ENABLE() (TIMER2->regs).gen->CCER |= TIMER_CCER_CC2E
@@ -342,7 +342,7 @@ See page 136 of the processors datasheet: http://www.atmel.com/Images/doc2549.pd
     #define IGN3_TIMER_ENABLE() (TIMER3->regs).gen->CCER |= TIMER_CCER_CC3E
     #define IGN4_TIMER_ENABLE() (TIMER3->regs).gen->CCER |= TIMER_CCER_CC4E
 
-#ifndef SMALL_FLASH_MODE
+/*#ifndef SMALL_FLASH_MODE
     #define FUEL5_TIMER_ENABLE() (TIMER5->regs).gen->CCER |= TIMER_CCER_CC1E
     #define FUEL6_TIMER_ENABLE() (TIMER5->regs).gen->CCER |= TIMER_CCER_CC2E
     #define FUEL7_TIMER_ENABLE() (TIMER5->regs).gen->CCER |= TIMER_CCER_CC3E
@@ -362,7 +362,7 @@ See page 136 of the processors datasheet: http://www.atmel.com/Images/doc2549.pd
     #define IGN6_TIMER_DISABLE() (TIMER4->regs).gen->CCER &= ~TIMER_CCER_CC2E
     #define IGN7_TIMER_DISABLE() (TIMER4->regs).gen->CCER &= ~TIMER_CCER_CC3E
     #define IGN8_TIMER_DISABLE() (TIMER4->regs).gen->CCER &= ~TIMER_CCER_CC4E
-#endif
+#endif*/
   #endif
 #endif
 

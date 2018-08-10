@@ -822,8 +822,11 @@ void setup()
   setFuelSchedule4(100, (unsigned long)(configPage2.primePulse * 100));
 
   initialisationComplete = true;
-  pinMode(44
-  , OUTPUT); //TB_STM2 correspond to IGN1 for brake control
+  //changing timer 5 register in order to change its frequency
+  TCCR5B &= ~7;
+  TCCR5B |= 2;
+  
+  pinMode(44, OUTPUT); //TB_STM2 correspond to IGN1 for brake control
   pinMode(46, OUTPUT);  //ECU_STM2
   digitalWrite(46, HIGH);  //ECU_STM2
 }
@@ -874,7 +877,8 @@ void loop()
       //==============================================================================
       if (configPage4.byPassCtrlVolt != byPassCtrlVoltOld)// TB_STM2
       {
-        analogWrite(46, map(configPage4.byPassCtrlVolt, 0, 65535, 0, 255));
+        analogWrite(46, configPage4.byPassCtrlVolt);
+        analogWrite(44, configPage4.byPassCtrlVolt);
         byPassCtrlVoltOld = configPage4.byPassCtrlVolt;
       }
       

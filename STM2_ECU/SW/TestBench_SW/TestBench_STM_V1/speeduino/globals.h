@@ -8,50 +8,52 @@
 #define IGN_CHANNELS 5
 
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)
-  #define BOARD_DIGITAL_GPIO_PINS 54
-  #define BOARD_NR_GPIO_PINS 62
-  #define LED_BUILTIN 13 //TB_STM2 just to not blink on load cell input
-  #define CORE_AVR
+#define BOARD_DIGITAL_GPIO_PINS 54
+#define BOARD_NR_GPIO_PINS 62
+#define LED_BUILTIN 13 //TB_STM2 just to not blink on load cell input
+#define CORE_AVR
 
-  //#define TIMER5_MICROS
+//#define TIMER5_MICROS
 
 #elif defined(CORE_TEENSY)
-  #define BOARD_DIGITAL_GPIO_PINS 34
-  #define BOARD_NR_GPIO_PINS 34
+#define BOARD_DIGITAL_GPIO_PINS 34
+#define BOARD_NR_GPIO_PINS 34
 #elif defined(STM32_MCU_SERIES) || defined(ARDUINO_ARCH_STM32) || defined(__STM32F1__) || defined(STM32F4) || defined(STM32)
-  #define CORE_STM32
-  #ifndef word
-    #define word(h, l) ((h << 8) | l) //word() function not defined for this platform in the main library
-  #endif
-  #if defined (STM32F1) || defined(__STM32F1__)
-    #define BOARD_DIGITAL_GPIO_PINS 34
-    #define BOARD_NR_GPIO_PINS 34
-    #ifndef LED_BUILTIN
-      #define LED_BUILTIN PB1 //Maple Mini
-    #endif
-  #elif defined(ARDUINO_BLACK_F407VE) || defined(STM32F4)
-    #define BOARD_DIGITAL_GPIO_PINS 80
-    #define BOARD_NR_GPIO_PINS 80
-    #define LED_BUILTIN PA7
-  #endif
+#define CORE_STM32
+#ifndef word
+#define word(h, l) ((h << 8) | l) //word() function not defined for this platform in the main library
+#endif
+#if defined (STM32F1) || defined(__STM32F1__)
+#define BOARD_DIGITAL_GPIO_PINS 34
+#define BOARD_NR_GPIO_PINS 34
+#ifndef LED_BUILTIN
+#define LED_BUILTIN PB1 //Maple Mini
+#endif
+#elif defined(ARDUINO_BLACK_F407VE) || defined(STM32F4)
+#define BOARD_DIGITAL_GPIO_PINS 80
+#define BOARD_NR_GPIO_PINS 80
+#define LED_BUILTIN PA7
+#endif
 
-  //Specific mode for Bluepill due to its small flash size. This disables a number of strings from being compiled into the flash
-  #if defined(MCU_STM32F103C8) | defined(MCU_STM32F103CB)
-    #define SMALL_FLASH_MODE
-  #endif
+//Specific mode for Bluepill due to its small flash size. This disables a number of strings from being compiled into the flash
+#if defined(MCU_STM32F103C8) | defined(MCU_STM32F103CB)
+#define SMALL_FLASH_MODE
+#endif
 
-  extern "C" char* sbrk(int incr); //Used to freeRam
-  #if defined(ARDUINO_ARCH_STM32) // STM32GENERIC core
-    inline unsigned char  digitalPinToInterrupt(unsigned char Interrupt_pin) { return Interrupt_pin; } //This isn't included in the stm32duino libs (yet)
-    #define portOutputRegister(port) (volatile byte *)( &(port->ODR) )
-    #define portInputRegister(port) (volatile byte *)( &(port->IDR) )
-  #else //libmaple core aka STM32DUINO
-    //These are defined in STM32F1/variants/generic_stm32f103c/variant.h but return a non byte* value
-    #define portOutputRegister(port) (volatile byte *)( &(port->regs->ODR) )
-    #define portInputRegister(port) (volatile byte *)( &(port->regs->IDR) )
-  #endif
+extern "C" char* sbrk(int incr); //Used to freeRam
+#if defined(ARDUINO_ARCH_STM32) // STM32GENERIC core
+inline unsigned char  digitalPinToInterrupt(unsigned char Interrupt_pin) {
+  return Interrupt_pin;  //This isn't included in the stm32duino libs (yet)
+}
+#define portOutputRegister(port) (volatile byte *)( &(port->ODR) )
+#define portInputRegister(port) (volatile byte *)( &(port->IDR) )
+#else //libmaple core aka STM32DUINO
+//These are defined in STM32F1/variants/generic_stm32f103c/variant.h but return a non byte* value
+#define portOutputRegister(port) (volatile byte *)( &(port->regs->ODR) )
+#define portInputRegister(port) (volatile byte *)( &(port->regs->IDR) )
+#endif
 #else
-  #error Incorrect board selected. Please select the correct board (Usually Mega 2560) and upload again
+#error Incorrect board selected. Please select the correct board (Usually Mega 2560) and upload again
 #endif
 
 //Handy bitsetting macros
@@ -188,7 +190,7 @@ const char TSfirmwareVersion[] = "Speeduino 2016.09";
 
 const byte data_structure_version = 2; //This identifies the data structure when reading / writing.
 //const byte page_size = 64;
-const int16_t npage_size[11] = {0,288,128,288,128,288,128,240,192,128,192};
+const int16_t npage_size[11] = {0, 288, 128, 288, 128, 288, 128, 240, 192, 128, 192};
 //const byte page11_size = 128;
 #define MAP_PAGE_SIZE 288
 
@@ -305,7 +307,7 @@ unsigned long TiSinceLstTooth1;
 unsigned long TiSinceLstTooth2;
 unsigned long TbSpd1;
 unsigned long TbSpd2;
-uint16_t byPassCtrlVoltOld = 0;
+uint8_t byPassCtrlVoltOld = 0;
 
 //The status struct contains the current values for all 'live' variables
 //In current version this is 64 bytes TB_STM2 change it to 76 bytes
@@ -509,9 +511,9 @@ struct config2 {
   byte unused1_70[58];
 
 #if defined(CORE_AVR)
-  };
+};
 #else
-  } __attribute__((__packed__)); //The 32 bi systems require all structs to be fully packed
+} __attribute__((__packed__)); //The 32 bi systems require all structs to be fully packed
 #endif
 
 //Page 2 of the config - See the ini file for further reference
@@ -571,21 +573,21 @@ struct config4 {
   byte ignBypassEnabled : 1; //Whether or not the ignition bypass is enabled
   byte ignBypassPin : 6; //Pin the ignition bypass is activated on
   byte ignBypassHiLo : 1; //Whether this should be active high or low.
-  
+
   int tareValue1;  //TB_STM2 value that will be substract to raw value from cell
   int tareValue2;  //TB_STM2 value that will be substract to raw value from cell
   long calibrationFactor1;  //TB_STM2 value that will be substract to raw value from cell
   long calibrationFactor2;  //TB_STM2 value that will be substract to raw value from cell
   uint16_t TbCellDist1;  //TB_STM2 this is the distance of the load cell from center of the retarders in mm
   uint16_t TbCellDist2;  //TB_STM2
-  uint16_t byPassCtrlVolt;
+  uint8_t byPassCtrlVolt;
 
-  byte unused2_64[46];  // TB_STM2 should reduce unused size if value is added in this page
+  byte unused2_64[47];  // TB_STM2 should reduce unused size if value is added in this page
 
 #if defined(CORE_AVR)
-  };
+};
 #else
-  } __attribute__((__packed__)); //The 32 bi systems require all structs to be fully packed
+} __attribute__((__packed__)); //The 32 bi systems require all structs to be fully packed
 #endif
 
 //Page 6 of the config - See the ini file for further reference
@@ -677,16 +679,16 @@ struct config6 {
   byte fanFreq;           // Fan PWM frequency
   byte fanPWMBins[4];     //Temperature Bins for the PWM fan control
 #if defined(CORE_AVR)
-  };
+};
 #else
-  } __attribute__((__packed__)); //The 32 bit systems require all structs to be fully packed
+} __attribute__((__packed__)); //The 32 bit systems require all structs to be fully packed
 #endif
 
 //Page 9 of the config mostly deals with CANBUS control
 //See ini file for further info (Config Page 10 in the ini)
 struct config9 {
-  byte enable_canbus:2;
-  byte enable_candata_in:1;
+  byte enable_canbus: 2;
+  byte enable_candata_in: 1;
   uint16_t caninput_sel;                    //bit status on/off if input is enabled
   uint16_t caninput_source_can_address[16];        //u16 [15] array holding can address of input
   uint8_t caninput_source_start_byte[16];     //u08 [15] array holds the start byte number(value of 0-7)
@@ -702,7 +704,7 @@ struct config9 {
   byte unused10_97;
   byte unused10_98;
   byte unused10_99;
-  byte speeduino_tsCanId:4;         //speeduino TS canid (0-14)
+  byte speeduino_tsCanId: 4;        //speeduino TS canid (0-14)
   uint16_t true_address;            //speeduino 11bit can address
   uint16_t realtime_base_address;   //speeduino 11 bit realtime base address
   uint16_t obd_address;             //speeduino OBD diagnostic address
@@ -728,15 +730,15 @@ struct config9 {
   byte unused10_126;
   byte unused10_127;
 #if defined(CORE_AVR)
-  };
+};
 #else
-  } __attribute__((__packed__)); //The 32 bit systems require all structs to be fully packed
+} __attribute__((__packed__)); //The 32 bit systems require all structs to be fully packed
 #endif
 
 /*
-Page 10 - No specific purpose. Created initially for the cranking enrich curve
-192 bytes long
-See ini file for further info (Config Page 11 in the ini)
+  Page 10 - No specific purpose. Created initially for the cranking enrich curve
+  192 bytes long
+  See ini file for further info (Config Page 11 in the ini)
 */
 struct config10 {
   byte crankingEnrichBins[4];
@@ -762,14 +764,14 @@ struct config10 {
   uint8_t flexFuelAdj[6];   //Fuel % @ current ethanol (typically 100% @ 0%, 163% @ 100%)
   uint8_t flexAdvBins[6];
   uint8_t flexAdvAdj[6];    //Additional advance (in degrees) @ current ethanol (typically 0 @ 0%, 10-20 @ 100%)
-                            //And another three corn rows die.
+  //And another three corn rows die.
 
   byte unused11_75_191[117];
 
 #if defined(CORE_AVR)
-  };
+};
 #else
-  } __attribute__((__packed__)); //The 32 bit systems require all structs to be fully packed
+} __attribute__((__packed__)); //The 32 bit systems require all structs to be fully packed
 #endif
 
 byte pinInjector1; //Output pin injector 1
