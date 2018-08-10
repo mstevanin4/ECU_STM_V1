@@ -891,10 +891,11 @@ void loop()
         currentStatus.SpdDe = currentStatus.engRPMInTbMode - configPage4.EngSpdSp;
         if ((mainLoopCount % configPage4.SpdCtrlClcnPer) == 0)
         {
-          CtrlPropPart = currentStatus.SpdDe * configPage4.CtrlKp;
+          CtrlPropPart = (long)currentStatus.SpdDe * configPage4.CtrlKp;
           if ((currentStatus.BrkCtrlOut > 0) && (currentStatus.BrkCtrlOut < 100)) // this is a simple Anti Windup
             SpdDeIntgl = SpdDeIntgl + currentStatus.SpdDe;
-          CtrlIntglPart = SpdDeIntgl * configPage4.CtrlTi * configPage4.CtrlKp;
+          CtrlIntglPart = (long)SpdDeIntgl * configPage4.CtrlTi;
+          CtrlIntglPart = CtrlIntglPart / 100;  //this is to avoir the a too big effect Integral
           BrkCtrlOut_long = CtrlPropPart + CtrlIntglPart;
           if (BrkCtrlOut_long < -50000)
             currentStatus.BrkCtrlOut = 0;
@@ -902,8 +903,16 @@ void loop()
             currentStatus.BrkCtrlOut = 100;
           else
             currentStatus.BrkCtrlOut = (uint8_t) ((BrkCtrlOut_long/1000)+50);
-          analogWrite(46, 155 + currentStatus.BrkCtrlOut);
-          analogWrite(44, 155 + currentStatus.BrkCtrlOut);
+          if (currentStatus.engRPMInTbMode < 600)
+          {
+            analogWrite(46, 0);
+            analogWrite(44, 0);
+          }
+          else
+          {
+            analogWrite(46, 155 + currentStatus.BrkCtrlOut);
+            analogWrite(44, 155 + currentStatus.BrkCtrlOut);
+          }
         }
       }
       else
@@ -1933,24 +1942,30 @@ void loop()
 
 void getTbSpd1()
 {
+  noInterrupts();
   oldcurTbTime1 = curTbTime1;
   curTbTime1 = micros();
   TiSinceLstTooth1 = curTbTime1 - oldcurTbTime1;
-  TbSpd1 = TiSinceLstTooth1 * TbNrOfTooth1;
-  TbSpd1 = 60000000/TbSpd1;
+  //TbSpd1 = TiSinceLstTooth1 * TbNrOfTooth1;
+  //TbSpd1 = 60000000/TbSpd1;
+  TbSpd1 = (60000000/(TiSinceLstTooth1 * TbNrOfTooth1)) + (7*TbSpd1);
+  TbSpd1 = TbSpd1 >> 3;
   TbTooth1++;
-  
+  interrupts();  
 }
 
 void getTbSpd2()
 {
+  noInterrupts();
   oldcurTbTime2 = curTbTime2;
   curTbTime2 = micros();
   TiSinceLstTooth2 = curTbTime2 - oldcurTbTime2;
-  TbSpd2 = TiSinceLstTooth2 * TbNrOfTooth2;
-  TbSpd2 = 60000000/TbSpd2;
+  //TbSpd2 = TiSinceLstTooth2 * TbNrOfTooth2;
+  //TbSpd2 = 60000000/TbSpd2;
+  TbSpd2 = (60000000/(TiSinceLstTooth2 * TbNrOfTooth2)) + (7*TbSpd2);
+  TbSpd2 = TbSpd2 >> 3;
   TbTooth2++;
-  
+  noInterrupts();  
 }
 
 /*
