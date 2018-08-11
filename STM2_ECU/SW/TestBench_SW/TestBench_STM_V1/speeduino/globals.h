@@ -595,8 +595,9 @@ struct config4 {
   uint8_t SpdCtrlClcnPer;
   uint8_t CtrlKp;
   uint8_t CtrlTi;
+  uint8_t SpdRampFact;
 
-  byte unused2_64[40];  // TB_STM2 should reduce unused size if value is added in this page
+  byte unused2_64[39];  // TB_STM2 should reduce unused size if value is added in this page
 
 #if defined(CORE_AVR)
 };

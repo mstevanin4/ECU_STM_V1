@@ -927,6 +927,15 @@ void loop()
           byPassCtrlVoltOld = configPage4.byPassCtrlVolt;
       }
       }
+      // Ramp control
+      //====================================================================================
+      if (configPage4.SpdRampFact)
+      {
+        if(((mainLoopCount % configPage4.SpdRampFact) == 0) && (configPage4.EngSpdSp < 20000))  // second condition is to avoid overflow and back to zero that stop immediatly the wheels
+          {
+            configPage4.EngSpdSp++;  
+          }
+      }
       
       mainLoopCount++;
       LOOP_TIMER = TIMER_mask;
@@ -1946,10 +1955,10 @@ void getTbSpd1()
   oldcurTbTime1 = curTbTime1;
   curTbTime1 = micros();
   TiSinceLstTooth1 = curTbTime1 - oldcurTbTime1;
-  //TbSpd1 = TiSinceLstTooth1 * TbNrOfTooth1;
-  //TbSpd1 = 60000000/TbSpd1;
-  TbSpd1 = (60000000/(TiSinceLstTooth1 * TbNrOfTooth1)) + (7*TbSpd1);
-  TbSpd1 = TbSpd1 >> 3;
+  TbSpd1 = TiSinceLstTooth1 * TbNrOfTooth1;
+  TbSpd1 = 60000000/TbSpd1;
+  //TbSpd1 = (60000000/(TiSinceLstTooth1 * TbNrOfTooth1)) + (7*TbSpd1);
+  //TbSpd1 = TbSpd1 >> 3;
   TbTooth1++;
   interrupts();  
 }
@@ -1960,10 +1969,10 @@ void getTbSpd2()
   oldcurTbTime2 = curTbTime2;
   curTbTime2 = micros();
   TiSinceLstTooth2 = curTbTime2 - oldcurTbTime2;
-  //TbSpd2 = TiSinceLstTooth2 * TbNrOfTooth2;
-  //TbSpd2 = 60000000/TbSpd2;
-  TbSpd2 = (60000000/(TiSinceLstTooth2 * TbNrOfTooth2)) + (7*TbSpd2);
-  TbSpd2 = TbSpd2 >> 3;
+  TbSpd2 = TiSinceLstTooth2 * TbNrOfTooth2;
+  TbSpd2 = 60000000/TbSpd2;
+  //TbSpd2 = (60000000/(TiSinceLstTooth2 * TbNrOfTooth2)) + (7*TbSpd2);
+  //TbSpd2 = TbSpd2 >> 3;
   TbTooth2++;
   noInterrupts();  
 }
