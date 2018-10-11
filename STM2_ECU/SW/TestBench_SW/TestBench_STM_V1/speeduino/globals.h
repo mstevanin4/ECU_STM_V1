@@ -292,7 +292,10 @@ volatile byte LOOP_TIMER;
 long calibrationFactorOld1 = -66700; // TB_STM2
 long calibrationFactorOld2 = -66700; // TB_STM2
 long TqOnCell1_long = 0;
+long TqOnCell1Old_long = 0;
 long TqOnCell2_long = 0;
+long TqOnCell2Old_long = 0;
+long TqTmp_long = 0;
 long PwrOnRetarder1_long;
 long PwrOnRetarder2_long;
 uint8_t TbTooth1 = 0;
@@ -313,6 +316,8 @@ long SpdDeIntgl = 0;
 long CtrlPropPart = 0;
 long CtrlIntglPart = 0;
 long BrkCtrlOut_long = 0;
+uint16_t EngSpdSp_v = 0;
+uint16_t EngSpdSp_C_old = 0;
 
 //The status struct contains the current values for all 'live' variables
 //In current version this is 64 bytes TB_STM2 change it to 79 bytes
@@ -404,8 +409,8 @@ struct statuses {
   uint16_t AvgTbRPM;
   int TqOnCell1; // TB_STM2 this is the equivalent raw mass on the dyno Cell in [Nm/10]
   int TqOnCell2; // TB_STM2 this is the equivalent raw mass on the dyno Cell in [Nm/10]
-  int AvgTqOnCell; // TB_STM2 this is the mean of torque on each cell
-  int AvgTqAtEng; // TB_STM2 this is the calculated torque at engine (higher than AvgTqOnCell because of the gear ratio)
+  int TqInrtl; // TB_STM2 this is the mean of torque on each cell
+  int AvgTqAtEng; // TB_STM2 this is the calculated torque at engine
   int PwrOnRetarder1; // TB_STM2 this is the Power absorbed by rearter 1 [HP/10]
   int PwrOnRetarder2; // TB_STM2 this is the Power absorbed by rearter 2 [HP/10]
   int AvgPwrOnRetarder;
@@ -596,8 +601,9 @@ struct config4 {
   uint8_t CtrlKp;
   uint8_t CtrlTi;
   uint8_t SpdRampFact;
+  uint8_t TqFiltFact;
 
-  byte unused2_64[39];  // TB_STM2 should reduce unused size if value is added in this page
+  byte unused2_64[38];  // TB_STM2 should reduce unused size if value is added in this page
 
 #if defined(CORE_AVR)
 };

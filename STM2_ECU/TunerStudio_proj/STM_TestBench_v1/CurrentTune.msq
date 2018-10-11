@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <msq xmlns="http://www.msefi.com/:msq">
-<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="" writeDate="Wed Aug 08 17:10:20 CEST 2018"/>
+<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="" writeDate="Tue Aug 14 12:41:11 CEST 2018"/>
 <versionInfo fileFormat="5.0" firmwareInfo="Speeduino+2018.4" nPages="10" signature="speeduino 201804"/>
 <page>
 <pcVariable name="tsCanId">"CAN ID 0"</pcVariable>
@@ -124,7 +124,7 @@
 <constant digits="0" name="dutyLim" units="%">90.0</constant>
 <constant digits="0" name="flexFreqLow" units="Hz">50.0</constant>
 <constant digits="0" name="flexFreqHigh" units="Hz">150.0</constant>
-<constant digits="0" name="boostMaxDuty" units="%">80.0</constant>
+<constant digits="0" name="boostMaxDuty" units="%">100.0</constant>
 <constant digits="0" name="tpsMin" units="ADC">26.0</constant>
 <constant digits="0" name="tpsMax" units="ADC">230.0</constant>
 <constant digits="0" name="mapMin" units="kpa">10.0</constant>
@@ -140,7 +140,7 @@
 <constant digits="0" name="unused2-60" units="Deg">13.0</constant>
 <constant digits="0" name="iacCLminDuty" units="%">0.0</constant>
 <constant digits="0" name="iacCLmaxDuty" units="%">0.0</constant>
-<constant digits="0" name="boostMinDuty" units="%">20.0</constant>
+<constant digits="0" name="boostMinDuty" units="%">0.0</constant>
 <constant digits="0" name="baroMin" units="kpa">1.0</constant>
 <constant digits="0" name="baroMax" units="kpa">315.0</constant>
 <constant digits="0" name="EMAPMin" units="kpa">56.0</constant>
@@ -352,36 +352,38 @@
 <constant name="ignBypassEnable">"Off"</constant>
 <constant name="ignBypassPin">"3"</constant>
 <constant name="ignBypassHiLo">"LOW"</constant>
-<constant digits="0" name="tareValue1" units="Kg">-1841.0</constant>
-<constant digits="0" name="tareValue2" units="Kg">-2469.0</constant>
-<constant digits="0" name="calibrationFactor1" units="-">-7800.0</constant>
-<constant digits="0" name="calibrationFactor2" units="-">-7800.0</constant>
+<constant digits="0" name="tareValue1" units="Kg">-1619.0</constant>
+<constant digits="0" name="tareValue2" units="Kg">-2021.0</constant>
+<constant digits="0" name="calibrationFactor1" units="-">-8400.0</constant>
+<constant digits="0" name="calibrationFactor2" units="-">-8400.0</constant>
 <constant digits="0" name="TbCellDist1" units="mm">310.0</constant>
 <constant digits="0" name="TbCellDist2" units="mm">310.0</constant>
-<constant cols="1" digits="0" name="unused4-64" rows="43" units="%">
-         136.0 
-         225.0 
-         255.0 
-         255.0 
-         136.0 
-         225.0 
-         255.0 
-         255.0 
-         54.0 
-         1.0 
+<constant digits="0" name="byPassCtrlVolt" units="-">1.0</constant>
+<constant digits="0" name="GearRatio" units="-">384.0</constant>
+<constant digits="0" name="EngSpdSp" units="RPM">2000.0</constant>
+<constant digits="0" name="SpdCtrlClcnPer" units="-">1.0</constant>
+<constant digits="0" name="CtrlKp" units="-">70.0</constant>
+<constant digits="0" name="CtrlTi" units="-">1.0</constant>
+<constant digits="0" name="SpdRampFact" units="-">0.0</constant>
+<constant digits="0" name="TqFiltFact" units="-">1.0</constant>
+<constant cols="1" digits="0" name="unused4-64" rows="38" units="%">
+         4.0 
+         122.0 
          147.0 
-         147.0 
-         54.0 
-         1.0 
+         90.0 
+         27.0 
+         60.0 
          147.0 
          147.0 
          147.0 
          147.0 
          147.0 
          149.0 
+         150.0 
          151.0 
-         151.0 
-         149.0 
+         150.0 
+         148.0 
+         147.0 
          147.0 
          147.0 
          147.0 
@@ -397,30 +399,12 @@
          150.0 
          151.0 
          150.0 
+         149.0 
          148.0 
          147.0 
          147.0 
          147.0 
          147.0 
-      </constant>
-<constant cols="1" digits="0" name="UNALLOCATED_TOP_3" rows="17" units="RAW">
-         85.0 
-         52.0 
-         82.0 
-         91.0 
-         102.0 
-         112.0 
-         140.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         200.0 
-         200.0 
-         2.0 
-         255.0 
       </constant>
 </page>
 <page number="4" size="288">
@@ -482,7 +466,7 @@
 <page number="5" size="128">
 <constant name="egoAlgorithm">"No correction"</constant>
 <constant name="egoType">"Wide Band"</constant>
-<constant name="boostEnabled">"Off"</constant>
+<constant name="boostEnabled">"On"</constant>
 <constant name="vvtEnabled">"Off"</constant>
 <constant name="boostCutType">"Spark Only"</constant>
 <constant digits="0" name="egoKP" units="%">100.0</constant>
@@ -500,7 +484,7 @@
 <constant name="vvtPin">"Board Default"</constant>
 <constant name="useExtBaro">"No"</constant>
 <constant name="boostMode">"Simple"</constant>
-<constant name="boostPin">"Board Default"</constant>
+<constant name="boostPin">"12"</constant>
 <constant name="VVTasOnOff">"No"</constant>
 <constant name="useEMAP">"No"</constant>
 <constant cols="1" digits="1" name="brvBins" rows="6" units="V">
@@ -950,7 +934,7 @@
 <constant digits="0" name="unused10_124">255.0</constant>
 <constant digits="0" name="unused10_125">255.0</constant>
 <constant digits="0" name="unused10_126">255.0</constant>
-<constant digits="0" name="unused10_127">124.0</constant>
+<constant digits="0" name="unused10_127">100.0</constant>
 </page>
 <page number="9" size="192">
 <constant cols="1" digits="0" name="crankingEnrichBins" rows="4" units="C">

@@ -500,8 +500,8 @@ void sendValues(uint16_t offset, uint16_t packetLength, byte cmd, byte portNum)
   fullStatus[90] = highByte(currentStatus.TqOnCell1); // Torque on dyno Cell TB_STM2
   fullStatus[91] = lowByte(currentStatus.TqOnCell2); // Torque on dyno Cell TB_STM2
   fullStatus[92] = highByte(currentStatus.TqOnCell2); // Torque on dyno Cell TB_STM2
-  fullStatus[93] = lowByte(currentStatus.AvgTqOnCell); // Torque on dyno Cell TB_STM2
-  fullStatus[94] = highByte(currentStatus.AvgTqOnCell); // Torque on dyno Cell TB_STM2
+  fullStatus[93] = lowByte(currentStatus.TqInrtl); // 
+  fullStatus[94] = highByte(currentStatus.TqInrtl); // 
   fullStatus[95] = lowByte(currentStatus.AvgTqAtEng); // Torque at engine TB_STM2
   fullStatus[96] = highByte(currentStatus.AvgTqAtEng); // Torque at engine TB_STM2
   

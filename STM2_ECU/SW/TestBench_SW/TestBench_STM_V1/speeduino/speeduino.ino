@@ -843,43 +843,69 @@ void loop()
         scale2.set_scale((float)configPage4.calibrationFactor2);
         calibrationFactorOld2 = configPage4.calibrationFactor2;
       }
-      noInterrupts();
       if (scale.is_ready())
+      {
+        noInterrupts();
         currentStatus.loadOnTbCell1 = (int) ((scale.get_units() * 100)- configPage4.tareValue1);    //TB_STM2
+        interrupts();
+        // Torque calculation Cell1
+        //===========================================================================0
+        TqOnCell1Old_long = TqOnCell1_long;
+        TqOnCell1_long = (981 * (long)currentStatus.loadOnTbCell1)*0.01;
+        TqOnCell1_long = TqOnCell1_long * configPage4.TbCellDist1;
+        TqOnCell1_long = TqOnCell1_long *0.0001;  //TqOnCell1_long its unit is Nm/10
+        TqOnCell1_long = (TqOnCell1_long + ((configPage4.TqFiltFact-1) * TqOnCell1Old_long))/configPage4.TqFiltFact;
+        currentStatus.TqOnCell1 = (int) TqOnCell1_long;
+      }
       if (scale2.is_ready())
+      {
+        noInterrupts();
         currentStatus.loadOnTbCell2 = (int) ((scale2.get_units() * 100)- configPage4.tareValue2);    //TB_STM2
-      interrupts();
-      // Torque calculation
+        interrupts();
+        // Torque calculation Cell2
+        //===========================================================================0
+        TqOnCell2Old_long = TqOnCell2_long;
+        TqOnCell2_long = (981 * (long)currentStatus.loadOnTbCell2)*0.01;
+        TqOnCell2_long = TqOnCell2_long * configPage4.TbCellDist2;
+        TqOnCell2_long = TqOnCell2_long *0.0001;  //TqOnCell2_long its unit is Nm/10
+        TqOnCell2_long = (TqOnCell2_long + ((configPage4.TqFiltFact-1) * TqOnCell2Old_long))/configPage4.TqFiltFact;
+        currentStatus.TqOnCell2 = (int) TqOnCell2_long;
+      }
+
+      // Engine Torque calculation
       //===========================================================================0
-      TqOnCell1_long = (981 * (long)currentStatus.loadOnTbCell1)*0.01;
-      TqOnCell1_long = TqOnCell1_long * configPage4.TbCellDist1;
-      TqOnCell1_long = TqOnCell1_long *0.0001;  //TqOnCell1_long its unit is Nm/10
-      currentStatus.TqOnCell1 = (int) TqOnCell1_long;
+      TqTmp_long = TqOnCell1_long + TqOnCell2_long + currentStatus.TqInrtl;// variable used temporaly
+      TqTmp_long = (TqTmp_long * 1000)/(configPage4.GearRatio*10);
+      currentStatus.AvgTqAtEng = (int)TqTmp_long;
       
-      TqOnCell2_long = (981 * (long)currentStatus.loadOnTbCell2)*0.01;
-      TqOnCell2_long = TqOnCell2_long * configPage4.TbCellDist2;
-      TqOnCell2_long = TqOnCell2_long *0.0001;  //TqOnCell2_long its unit is Nm/10
-      currentStatus.TqOnCell2 = (int) TqOnCell2_long;
       // Speed calculation
       //===========================================================================
       currentStatus.TbRPM1 = (uint16_t)TbSpd1;
       currentStatus.TbRPM2 = (uint16_t)TbSpd2;
-      currentStatus.AvgTbRPM = (currentStatus.TbRPM1 + currentStatus.TbRPM2)/2;
+      currentStatus.AvgTbRPM = (currentStatus.TbRPM1 + currentStatus.TbRPM2)>>1;
       engRPMIntTbMode_long = currentStatus.AvgTbRPM;
-      engRPMIntTbMode_long = (engRPMIntTbMode_long * configPage4.GearRatio)/100;
+      engRPMIntTbMode_long = (engRPMIntTbMode_long * configPage4.GearRatio)*0.01;
       currentStatus.engRPMInTbMode = (uint16_t)engRPMIntTbMode_long;
+      
       // Power calculation
       //===========================================================================0
-      PwrOnRetarder1_long = TqOnCell1_long * currentStatus.TbRPM1;
+      PwrOnRetarder1_long = (TqOnCell1_long + (currentStatus.TqInrtl >> 1)) * currentStatus.TbRPM1;
       PwrOnRetarder1_long = PwrOnRetarder1_long * 0.000142379;  // (2*pi/60) * 1.35962 / 1000
       currentStatus.PwrOnRetarder1 = (int) PwrOnRetarder1_long;
       
-      PwrOnRetarder2_long = TqOnCell2_long * currentStatus.TbRPM2;
+      PwrOnRetarder2_long = (TqOnCell2_long + (currentStatus.TqInrtl >> 1)) * currentStatus.TbRPM2;
       PwrOnRetarder2_long = PwrOnRetarder2_long * 0.000142379;  // (2*pi/60) * 1.35962 / 1000
       currentStatus.PwrOnRetarder2 = (int) PwrOnRetarder2_long;
 
+      currentStatus.AvgPwrOnRetarder = currentStatus.PwrOnRetarder2 + currentStatus.PwrOnRetarder1;
+      
       //PI Controler Brake Controller
       //===============================================================================
+      if (configPage4.EngSpdSp != EngSpdSp_C_old)
+      {
+        EngSpdSp_v = configPage4.EngSpdSp;
+        EngSpdSp_C_old = configPage4.EngSpdSp;
+      }
       if (configPage4.byPassCtrlVolt == 0)
       {
         if (configPage4.byPassCtrlVolt != byPassCtrlVoltOld)
@@ -888,14 +914,14 @@ void loop()
           byPassCtrlVoltOld = configPage4.byPassCtrlVolt;
         }
         
-        currentStatus.SpdDe = currentStatus.engRPMInTbMode - configPage4.EngSpdSp;
+        currentStatus.SpdDe = currentStatus.engRPMInTbMode - EngSpdSp_v;
         if ((mainLoopCount % configPage4.SpdCtrlClcnPer) == 0)
         {
           CtrlPropPart = (long)currentStatus.SpdDe * configPage4.CtrlKp;
           if ((currentStatus.BrkCtrlOut > 0) && (currentStatus.BrkCtrlOut < 100)) // this is a simple Anti Windup
             SpdDeIntgl = SpdDeIntgl + currentStatus.SpdDe;
           CtrlIntglPart = (long)SpdDeIntgl * configPage4.CtrlTi;
-          CtrlIntglPart = CtrlIntglPart / 100;  //this is to avoir the a too big effect Integral
+          CtrlIntglPart = CtrlIntglPart * 0.01;  //this is to avoir the a too big effect Integral
           BrkCtrlOut_long = CtrlPropPart + CtrlIntglPart;
           if (BrkCtrlOut_long < -50000)
             currentStatus.BrkCtrlOut = 0;
@@ -917,7 +943,8 @@ void loop()
       }
       else
       {
-        configPage4.EngSpdSp = currentStatus.engRPMInTbMode;
+        EngSpdSp_v = currentStatus.engRPMInTbMode;
+        
         // Brake Control
         //==============================================================================
         if (configPage4.byPassCtrlVolt != byPassCtrlVoltOld)// TB_STM2
@@ -927,15 +954,19 @@ void loop()
           byPassCtrlVoltOld = configPage4.byPassCtrlVolt;
       }
       }
+      
       // Ramp control
       //====================================================================================
       if (configPage4.SpdRampFact)
       {
-        if(((mainLoopCount % configPage4.SpdRampFact) == 0) && (configPage4.EngSpdSp < 20000))  // second condition is to avoid overflow and back to zero that stop immediatly the wheels
+        if(((mainLoopCount % configPage4.SpdRampFact) == 0) && (EngSpdSp_v < 20000))  // second condition is to avoid overflow and back to zero that stop immediatly the wheels
           {
-            configPage4.EngSpdSp++;  
+            EngSpdSp_v++;  
+            currentStatus.TqInrtl = 88 * (currentStatus.loopsPerSecond / (configPage4.SpdRampFact * 9.549));    // inertia of one rotor is 4.40 Kgm2 torque is here 10 times higher to get one decimal resolution 9,549 is conversion to rad/s2
           }
       }
+      else
+        currentStatus.TqInrtl = 0;
       
       mainLoopCount++;
       LOOP_TIMER = TIMER_mask;
@@ -1955,10 +1986,10 @@ void getTbSpd1()
   oldcurTbTime1 = curTbTime1;
   curTbTime1 = micros();
   TiSinceLstTooth1 = curTbTime1 - oldcurTbTime1;
-  TbSpd1 = TiSinceLstTooth1 * TbNrOfTooth1;
-  TbSpd1 = 60000000/TbSpd1;
-  //TbSpd1 = (60000000/(TiSinceLstTooth1 * TbNrOfTooth1)) + (7*TbSpd1);
-  //TbSpd1 = TbSpd1 >> 3;
+  //TbSpd1 = TiSinceLstTooth1 * TbNrOfTooth1;
+  //TbSpd1 = 60000000/TbSpd1;
+  TbSpd1 = (60000000/(TiSinceLstTooth1 * TbNrOfTooth1)) + (3*TbSpd1);
+  TbSpd1 = TbSpd1 >> 2;
   TbTooth1++;
   interrupts();  
 }
@@ -1969,10 +2000,10 @@ void getTbSpd2()
   oldcurTbTime2 = curTbTime2;
   curTbTime2 = micros();
   TiSinceLstTooth2 = curTbTime2 - oldcurTbTime2;
-  TbSpd2 = TiSinceLstTooth2 * TbNrOfTooth2;
-  TbSpd2 = 60000000/TbSpd2;
-  //TbSpd2 = (60000000/(TiSinceLstTooth2 * TbNrOfTooth2)) + (7*TbSpd2);
-  //TbSpd2 = TbSpd2 >> 3;
+  //TbSpd2 = TiSinceLstTooth2 * TbNrOfTooth2;
+  //TbSpd2 = 60000000/TbSpd2;
+  TbSpd2 = (60000000/(TiSinceLstTooth2 * TbNrOfTooth2)) + (3*TbSpd2);
+  TbSpd2 = TbSpd2 >> 2;
   TbTooth2++;
   noInterrupts();  
 }

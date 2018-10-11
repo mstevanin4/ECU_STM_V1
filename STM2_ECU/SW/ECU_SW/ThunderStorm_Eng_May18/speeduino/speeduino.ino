@@ -799,6 +799,14 @@ void setup()
   setFuelSchedule3(100, (unsigned long)(configPage2.primePulse * 100));
   setFuelSchedule4(100, (unsigned long)(configPage2.primePulse * 100));
 
+  //ECU_STM2 ALS
+  if(configPage6.launchHiLo) { clutchTrigger = digitalRead(pinLaunch); }
+  else { clutchTrigger = !digitalRead(pinLaunch); }
+  if (clutchTrigger)// ECU_STM2
+    antilagActiv = 1;
+  else
+    antilagActiv = 0;
+
   initialisationComplete = true;
   digitalWrite(LED_BUILTIN, HIGH);
 }
