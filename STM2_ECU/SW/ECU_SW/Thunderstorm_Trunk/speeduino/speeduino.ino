@@ -1223,7 +1223,7 @@ void loop()
  * @param injOpen Injector opening time. The time the injector take to open minus the time it takes to close (Both in uS)
  * @return uint16_t The injector pulse width in uS
  */
-uint16_t PW(int REQ_FUEL, byte VE, long MAP, int corrections, int injOpen)
+uint16_t PW(int REQ_FUEL, byte VE, long MAP, int corrections, int injOpen)    // Whole function modified by ECUSTM2
 {
   //Standard float version of the calculation
   //return (REQ_FUEL * (float)(VE/100.0) * (float)(MAP/100.0) * (float)(TPS/100.0) * (float)(corrections/100.0) + injOpen);
@@ -1237,8 +1237,8 @@ uint16_t PW(int REQ_FUEL, byte VE, long MAP, int corrections, int injOpen)
   if ( configPage2.multiplyMAP == true ) {
     iMAP = ((unsigned int)MAP << 7) / currentStatus.baro;  //Include multiply MAP (vs baro) if enabled
   }
-  if ( (configPage2.includeAFR == true) && (configPage6.egoType == 2)) {
-    iAFR = ((unsigned int)currentStatus.O2 << 7) / currentStatus.afrTarget;  //Include AFR (vs target) if enabled
+  if ( configPage2.includeAFR == true ) {	// no matter if O2 sensor is present because closed loop is made in correction.ino
+    iAFR = ((unsigned int)configPage2.stoich << 7) / currentStatus.afrTarget;  //Include AFR (vs target) if enabled
   }
   iCorrections = (corrections << 7) / 100;
 
@@ -1247,7 +1247,7 @@ uint16_t PW(int REQ_FUEL, byte VE, long MAP, int corrections, int injOpen)
   if ( configPage2.multiplyMAP == true ) {
     intermediate = (intermediate * (unsigned long)iMAP) >> 7;
   }
-  if ( (configPage2.includeAFR == true) && (configPage6.egoType == 2) ) {
+  if ( configPage2.includeAFR == true ) {	// no matter if O2 sensor is present because closed loop is made in correction.ino
     intermediate = (intermediate * (unsigned long)iAFR) >> 7;  //EGO type must be set to wideband for this to be used
   }
   intermediate = (intermediate * (unsigned long)iCorrections) >> 7;
