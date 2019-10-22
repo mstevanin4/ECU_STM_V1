@@ -1,4 +1,4 @@
-#if defined(CORE_TEENSY)
+#if defined(CORE_TEENSY) && defined(CORE_TEENSY35)
 #include "board_teensy35.h"
 #include "globals.h"
 #include "auxiliaries.h"
@@ -259,5 +259,6 @@ uint16_t freeRam()
     // The difference is the free, available ram.
     return (uint16_t)stackTop - heapTop;
 }
+
 
 #endif
