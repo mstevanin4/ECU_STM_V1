@@ -1,7 +1,7 @@
 #Project Attributes.
 #TunerStudio by EFI Analytics, Inc
-#Last Saved on: Sat Aug 18 12:05:19 CEST 2018
-#Sat Aug 18 12:05:19 CEST 2018
+#Last Saved on: Sat Jul 27 13:27:06 CEST 2019
+#Sat Jul 27 13:27:06 CEST 2019
 LaunchControlLaunch\ Control\ /\ Flat\ shift_Y=0
 LaunchControlLaunch\ Control\ /\ Flat\ shift_X=497
 mapCalCalibrate\ MAP_width=556
@@ -18,7 +18,7 @@ egoControlAFR/O2_Y=0
 egoControlAFR/O2_X=380
 reset_controlReset\ Control_width=486
 boostLoadBoost\ Targets/Load_width=388
-egoControlAFR/O2_height=597
+egoControlAFR/O2_height=434
 fuelpumpFuel\ pump_width=486
 CommSettingMSCommDriver.RS232\ Serial\ InterfaceBluetooth\ Port=false
 reset_controlReset\ Control_Y=422
@@ -38,7 +38,7 @@ triggerSettingsTrigger\ Settings_Y=0
 triggerSettingsTrigger\ Settings_X=673
 iat_retard_curveIAT\ timing\ retard_Y=31
 iat_retard_curveIAT\ timing\ retard_X=406
-egoControlAFR/O2_width=486
+egoControlAFR/O2_width=388
 dwell_correction_curveDwell\ voltage\ correction_width=532
 triggerSettingsTrigger\ Settings_height=874
 accelEnrichmentsAcceleration\ Enrichment_width=1136
@@ -160,7 +160,7 @@ warmupWarmup\ Enrichment\ (WUE)\ -\ Percent\ Multiplier_height=828
 CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceBluetooth\ Port=false
 CommSettingSURFTABCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM6
 userDash0.DashName=ThunderStorm_BasicDash
-CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM17
+CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM15
 sparkTblIgnition\ Advance\ Table_Y=0
 sparkTblIgnition\ Advance\ Table_X=0
 airdensity_curveIAT\ density\ correction_height=735
@@ -175,7 +175,7 @@ refTable_001_txtResistor3=213
 dwellSettingsDwell\ Settings_X=717
 refTable_001_txtResistor2=2970
 refTable_001_txtResistor1=13600
-CommSettingMSCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM17
+CommSettingMSCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM15
 iacPwm_curveIAC\ PWM\ Duty_height=738
 refTable_002_txtY2=18.7
 boostTblBoost\ targets\ (Absolute\ kPa)_width=683

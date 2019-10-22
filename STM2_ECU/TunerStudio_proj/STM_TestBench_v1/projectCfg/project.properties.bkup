@@ -1,7 +1,7 @@
 #Project Attributes.
 #TunerStudio by EFI Analytics, Inc
-#Last Saved on: Mon Aug 13 18:34:13 CEST 2018
-#Mon Aug 13 18:34:13 CEST 2018
+#Last Saved on: Wed Dec 26 14:06:52 CET 2018
+#Wed Dec 26 14:06:52 CET 2018
 CommSettingMSCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM18
 commPort=COM1
 boostTblBoost\ targets\ (Absolute\ kPa)_width=388
@@ -48,10 +48,10 @@ CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceCom\ Port=COM18
 RevLimiterSRev\ Limiter_X=383
 brake_controlBrake\ Control_width=388
 boostSettingsBoost\ Control_height=528
-brake_controlBrake\ Control_Y=374
+brake_controlBrake\ Control_Y=48
 sparkSettingsSpark\ Settings_height=409
 LaunchControlLaunch\ Control\ /\ Flat\ shift_height=522
-brake_controlBrake\ Control_X=19
+brake_controlBrake\ Control_X=25
 engine_constantsSpeed\ Controller\ Settings_width=583
 userDash0.DashName=calibration
 CommSettingPC-MARCCommDriver.RS232\ Serial\ InterfaceBaud\ Rate=115200

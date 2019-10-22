@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <msq xmlns="http://www.msefi.com/:msq">
-<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="" writeDate="Sat Aug 18 13:23:13 CEST 2018"/>
+<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="" writeDate="Tue Sep 03 21:20:49 CEST 2019"/>
 <versionInfo fileFormat="5.0" firmwareInfo="Serial+Signature%3A+speeduino+201805" nPages="10" signature="speeduino 201805"/>
 <page>
 <pcVariable name="tsCanId">"CAN ID 0"</pcVariable>
@@ -501,7 +501,7 @@
 <constant digits="0" name="egoKP" units="%">100.0</constant>
 <constant digits="0" name="egoKI" units="%">20.0</constant>
 <constant digits="0" name="egoKD" units="%">0.0</constant>
-<constant digits="0" name="egoTemp" units="C">70.0</constant>
+<constant digits="0" name="egoTemp" units="C">80.0</constant>
 <constant digits="0" name="egoCount">4.0</constant>
 <constant digits="0" name="unused6-6" units="%">1.0</constant>
 <constant digits="0" name="egoLimit">15.0</constant>
@@ -509,7 +509,7 @@
 <constant digits="1" name="ego_max" units="AFR">19.0</constant>
 <constant digits="0" name="ego_sdelay" units="sec">15.0</constant>
 <constant digits="0" name="egoRPM" units="rpm">1200.0</constant>
-<constant digits="0" name="egoTPSMax" units="%">40.0</constant>
+<constant digits="0" name="egoTPSMax" units="%">50.0</constant>
 <constant name="vvtPin">"26"</constant>
 <constant name="useExtBaro">"No"</constant>
 <constant name="boostMode">"Full"</constant>

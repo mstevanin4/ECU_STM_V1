@@ -1,0 +1,39 @@
+uint16_t PW(int REQ_FUEL, byte VE, long MAP, int corrections, int injOpen)
+{
+  //Standard float version of the calculation
+  //return (REQ_FUEL * (float)(VE/100.0) * (float)(MAP/100.0) * (float)(TPS/100.0) * (float)(corrections/100.0) + injOpen);
+  //Note: The MAP and TPS portions are currently disabled, we use VE and corrections only
+  uint16_t iVE, iCorrections;
+  uint16_t iMAP = 100;
+  uint16_t iAFR = 147;
+
+  //100% float free version, does sacrifice a little bit of accuracy, but not much.
+  iVE = ((unsigned int)VE << 7) / 100;
+  if ( configPage2.multiplyMAP == true ) {
+    iMAP = ((unsigned int)MAP << 7) / currentStatus.baro;  //Include multiply MAP (vs baro) if enabled
+  }
+  if ( configPage2.includeAFR == true ) {	// no matter if O2 sensor is present because closed loop is made in correction.ino
+    iAFR = ((unsigned int)configPage2.stoich << 7) / currentStatus.afrTarget;  //Include AFR (vs target) if enabled
+  }
+  iCorrections = (corrections << 7) / 100;
+
+
+  unsigned long intermediate = ((long)REQ_FUEL * (long)iVE) >> 7; //Need to use an intermediate value to avoid overflowing the long
+  if ( configPage2.multiplyMAP == true ) {
+    intermediate = (intermediate * (unsigned long)iMAP) >> 7;
+  }
+  if ( configPage2.includeAFR == true ) {	// no matter if O2 sensor is present because closed loop is made in correction.ino
+    intermediate = (intermediate * (unsigned long)iAFR) >> 7;  //EGO type must be set to wideband for this to be used
+  }
+  intermediate = (intermediate * (unsigned long)iCorrections) >> 7;
+  if (intermediate != 0)
+  {
+    //If intermeditate is not 0, we need to add the opening time (0 typically indicates that one of the full fuel cuts is active)
+    intermediate += injOpen; //Add the injector opening time
+    if ( intermediate > 65535)
+    {
+      intermediate = 65535;  //Make sure this won't overflow when we convert to uInt. This means the maximum pulsewidth possible is 65.535mS
+    }
+  }
+  return (unsigned int)(intermediate);
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <msq xmlns="http://www.msefi.com/:msq">
-<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="" writeDate="Tue Aug 14 12:41:11 CEST 2018"/>
+<bibliography author="TunerStudio MS 3.0.28 - EFI Analytics, Inc." tuneComment="" writeDate="Fri Dec 28 11:44:07 CET 2018"/>
 <versionInfo fileFormat="5.0" firmwareInfo="Speeduino+2018.4" nPages="10" signature="speeduino 201804"/>
 <page>
 <pcVariable name="tsCanId">"CAN ID 0"</pcVariable>
@@ -358,8 +358,8 @@
 <constant digits="0" name="calibrationFactor2" units="-">-8400.0</constant>
 <constant digits="0" name="TbCellDist1" units="mm">310.0</constant>
 <constant digits="0" name="TbCellDist2" units="mm">310.0</constant>
-<constant digits="0" name="byPassCtrlVolt" units="-">1.0</constant>
-<constant digits="0" name="GearRatio" units="-">384.0</constant>
+<constant digits="0" name="byPassCtrlVolt" units="-">0.0</constant>
+<constant digits="0" name="GearRatio" units="-">388.0</constant>
 <constant digits="0" name="EngSpdSp" units="RPM">2000.0</constant>
 <constant digits="0" name="SpdCtrlClcnPer" units="-">1.0</constant>
 <constant digits="0" name="CtrlKp" units="-">70.0</constant>
