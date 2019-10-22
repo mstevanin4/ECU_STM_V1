@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <msq xmlns="http://www.msefi.com/:msq">
-<bibliography author="TunerStudio MS(Beta) 3.0.60.45 - EFI Analytics, Inc." tuneComment="" writeDate="Tue Feb 12 17:03:58 AEDT 2019"/>
-<versionInfo fileFormat="5.0" firmwareInfo="Speeduino+2019.02" nPages="10" signature="speeduino 201902"/>
+<bibliography author="TunerStudio MS(Beta) 3.0.60.61 - EFI Analytics, Inc." tuneComment="" writeDate="Thu Sep 05 11:38:36 AEST 2019"/>
+<versionInfo fileFormat="5.0" firmwareInfo="Speeduino+2019.09" nPages="11" signature="speeduino 201909"/>
 <page>
 <pcVariable name="tsCanId">"CAN ID 0"</pcVariable>
 <pcVariable cols="1" digits="0" name="algorithmLimits" rows="8">
@@ -16,12 +16,14 @@
       </pcVariable>
 <pcVariable digits="0" name="fuelLoadMax">255.0</pcVariable>
 <pcVariable digits="0" name="ignLoadMax">255.0</pcVariable>
+<pcVariable name="AUXin00Alias">Aux0</pcVariable>
 </page>
 <page number="0" size="128">
-<constant digits="0" name="unused2-1" units="kPa">-1.0</constant>
-<constant digits="0" name="unused2-2" units="kPa">255.0</constant>
-<constant digits="0" name="asePct" units="%">25.0</constant>
-<constant digits="0" name="aseCount" units="s">8.0</constant>
+<constant digits="0" name="unused1-0" units="kPa">-1.0</constant>
+<constant digits="0" name="unused1-1" units="kPa">255.0</constant>
+<constant digits="0" name="unused1-2" units="%">255.0</constant>
+<constant name="aeMode">"TPS"</constant>
+<constant name="unused1-3c">"MAP"</constant>
 <constant cols="1" digits="0" name="wueRates" rows="10" units="%">
          180.0 
          175.0 
@@ -38,10 +40,10 @@
 <constant name="pinLayout">"Speeduino v0.4"</constant>
 <constant name="tachoPin">"Board Default"</constant>
 <constant name="tachoDiv">"Normal"</constant>
-<constant digits="1" name="unused2-17" units="ms">25.5</constant>
-<constant digits="1" name="unused2-18" units="ms">25.5</constant>
-<constant digits="0" name="tpsThresh" units="%/s">70.0</constant>
-<constant digits="0" name="taeTime" units="ms">200.0</constant>
+<constant digits="0" name="tachoDuration" units="ms">3.0</constant>
+<constant digits="0" name="maeThresh" units="kPa/s">70.0</constant>
+<constant digits="0" name="taeThresh" units="%/s">70.0</constant>
+<constant digits="0" name="aeTime" units="ms">200.0</constant>
 <constant name="display">"Unused"</constant>
 <constant name="display1">"VE"</constant>
 <constant name="display2">"CPU"</constant>
@@ -72,12 +74,12 @@
 <constant name="nInjectors">"4"</constant>
 <constant name="engineType">"Even fire"</constant>
 <constant name="flexEnabled">"Off"</constant>
-<constant name="unused2_38c">"Speed Density"</constant>
+<constant name="legacyMAP">"No"</constant>
 <constant name="baroCorr">"Off"</constant>
 <constant name="injLayout">"Paired"</constant>
-<constant name="perToothIgn">"No"</constant>
+<constant name="perToothIgn">"Yes"</constant>
 <constant name="dfcoEnabled">"Off"</constant>
-<constant digits="1" name="primePulse" units="ms">1.0</constant>
+<constant digits="1" name="unused2-39" units="ms">25.5</constant>
 <constant digits="0" name="dutyLim" units="%">90.0</constant>
 <constant digits="0" name="flexFreqLow" units="Hz">50.0</constant>
 <constant digits="0" name="flexFreqHigh" units="Hz">150.0</constant>
@@ -95,8 +97,8 @@
 <constant name="idleUpPolarity">"Normal"</constant>
 <constant name="idleUpEnabled">"Off"</constant>
 <constant digits="0" name="idleUpAdder" units="% / Steps">20.0</constant>
-<constant digits="0" name="taeTaperMin" units="RPM">1000.0</constant>
-<constant digits="0" name="taeTaperMax" units="RPM">4500.0</constant>
+<constant digits="0" name="aeTaperMin" units="RPM">1000.0</constant>
+<constant digits="0" name="aeTaperMax" units="RPM">5000.0</constant>
 <constant digits="0" name="iacCLminDuty" units="%">0.0</constant>
 <constant digits="0" name="iacCLmaxDuty" units="%">0.0</constant>
 <constant digits="0" name="boostMinDuty" units="%">20.0</constant>
@@ -106,66 +108,74 @@
 <constant digits="0" name="EMAPMax" units="kpa">260.0</constant>
 <constant name="fanWhenOff">"Yes"</constant>
 <constant name="unused_fan_bits">"30"</constant>
-<constant cols="1" digits="0" name="unused2-67" rows="56" units="%">
-         62.0 
-         62.0 
-         60.0 
-         61.0 
-         64.0 
-         65.0 
-         67.0 
-         68.0 
-         69.0 
+<constant cols="1" digits="0" name="asePct" rows="4" units="%">
          70.0 
-         71.0 
-         71.0 
-         70.0 
-         66.0 
-         61.0 
-         60.0 
-         60.0 
-         62.0 
-         63.0 
-         65.0 
-         66.0 
-         67.0 
-         68.0 
-         69.0 
-         70.0 
-         72.0 
-         73.0 
-         69.0 
-         62.0 
-         60.0 
-         61.0 
-         62.0 
-         63.0 
-         65.0 
-         67.0 
-         68.0 
-         70.0 
-         71.0 
-         72.0 
-         72.0 
-         73.0 
-         72.0 
-         64.0 
-         60.0 
-         61.0 
-         60.0 
-         63.0 
-         65.0 
-         66.0 
-         68.0 
-         68.0 
-         70.0 
-         71.0 
-         71.0 
-         71.0 
-         71.0 
+         50.0 
+         35.0 
+         35.0 
       </constant>
-<constant digits="0" name="UNALLOCATED_TOP_0" units="RAW">
+<constant cols="1" digits="0" name="aseCount" rows="4" units="s">
+         15.0 
+         8.0 
+         8.0 
+         3.0 
+      </constant>
+<constant cols="1" digits="0" name="aseBins" rows="4" units="C">
          0.0 
+         40.0 
+         80.0 
+         100.0 
+      </constant>
+<constant cols="1" digits="1" name="primePulse" rows="4" units="ms">
+         1.0 
+         1.0 
+         1.0 
+         1.0 
+      </constant>
+<constant cols="1" digits="0" name="primeBins" rows="4" units="C">
+         0.0 
+         40.0 
+         60.0 
+         100.0 
+      </constant>
+<constant cols="1" digits="0" name="unused2-91" rows="37" units="%">
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
       </constant>
 </page>
 <page number="1" size="288">
@@ -375,66 +385,72 @@
 <constant digits="0" name="ADCFILTER_BAT" units="%">128.0</constant>
 <constant digits="0" name="ADCFILTER_MAP" units="%">20.0</constant>
 <constant digits="0" name="ADCFILTER_BARO" units="%">64.0</constant>
-<constant cols="1" digits="0" name="unused4-64" rows="56" units="%">
-         16.0 
-         33.0 
-         147.0 
-         147.0 
-         147.0 
-         149.0 
-         151.0 
-         151.0 
-         148.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         148.0 
-         151.0 
-         151.0 
-         149.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         148.0 
-         150.0 
-         151.0 
-         149.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         147.0 
-         149.0 
-         150.0 
-         149.0 
-         148.0 
-         147.0 
-         147.0 
-         146.0 
-         145.0 
-      </constant>
-<constant digits="0" name="UNALLOCATED_TOP_3" units="RAW">
+<constant cols="1" digits="0" name="cltAdvBins" rows="6" units="C">
          0.0 
+         20.0 
+         40.0 
+         60.0 
+         80.0 
+         100.0 
+      </constant>
+<constant cols="1" digits="0" name="cltAdvValues" rows="6" units="deg">
+         0.0 
+         0.0 
+         0.0 
+         0.0 
+         0.0 
+         0.0 
+      </constant>
+<constant cols="1" digits="0" name="maeBins" rows="4" units="kpa/s">
+         80.0 
+         220.0 
+         500.0 
+         860.0 
+      </constant>
+<constant cols="1" digits="0" name="maeRates" rows="4" units="%">
+         50.0 
+         73.0 
+         92.0 
+         94.0 
+      </constant>
+<constant digits="1" name="batVoltCorrect" units="v">0.0</constant>
+<constant cols="1" digits="0" name="unused4-92" rows="36" units="%">
+         93.0 
+         147.0 
+         148.0 
+         151.0 
+         149.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         151.0 
+         150.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         149.0 
+         151.0 
+         148.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         147.0 
+         148.0 
+         150.0 
+         149.0 
+         147.0 
+         147.0 
+         145.0 
       </constant>
 </page>
 <page number="4" size="288">
@@ -474,27 +490,27 @@
          6900.0 
          7000.0 
       </constant>
-<constant cols="1" digits="0" name="mapBinsAFR" rows="16" units="kPa">
-         16.0 
-         26.0 
-         30.0 
-         36.0 
-         40.0 
-         46.0 
-         50.0 
-         56.0 
-         60.0 
-         66.0 
-         70.0 
-         76.0 
-         86.0 
-         90.0 
-         96.0 
-         100.0 
+<constant cols="1" digits="0" name="loadBinsAFR" rows="16" units="kPa">
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
       </constant>
 </page>
 <page number="5" size="128">
-<constant name="egoAlgorithm">"Simple"</constant>
+<constant name="egoAlgorithm">"No correction"</constant>
 <constant name="egoType">"Wide Band"</constant>
 <constant name="boostEnabled">"Off"</constant>
 <constant name="vvtEnabled">"Off"</constant>
@@ -504,7 +520,12 @@
 <constant digits="0" name="egoKD" units="%">20.0</constant>
 <constant digits="0" name="egoTemp" units="C">70.0</constant>
 <constant digits="0" name="egoCount">16.0</constant>
-<constant digits="0" name="unused6-6" units="%">255.0</constant>
+<constant name="vvtMode">"On/Off"</constant>
+<constant name="vvtLoadSource">"MAP"</constant>
+<constant name="vvtCLDir">"Advance"</constant>
+<constant name="vvtCLUseHold">"No"</constant>
+<constant name="vvtCLAlterFuelTiming">"No"</constant>
+<constant name="unused6-6">"MAP"</constant>
 <constant digits="0" name="egoLimit">15.0</constant>
 <constant digits="1" name="ego_min" units="AFR">9.0</constant>
 <constant digits="1" name="ego_max" units="AFR">19.0</constant>
@@ -649,7 +670,7 @@
 <constant name="iacStepTime">"3"</constant>
 <constant name="iacChannels">"1"</constant>
 <constant name="iacPWMdir">"Normal"</constant>
-<constant digits="0" name="iacFastTemp" units="C">20.0</constant>
+<constant digits="0" name="iacFastTemp" units="C">50.0</constant>
 <constant digits="0" name="iacStepHome" units="Steps">240.0</constant>
 <constant digits="0" name="iacStepHyster" units="Steps">4.0</constant>
 <constant name="fanInv">"No"</constant>
@@ -716,15 +737,15 @@
          6000.0 
          6800.0 
       </constant>
-<constant cols="1" digits="0" name="tpsBinsVVT" rows="8" units="TPS">
-         0.0 
-         10.0 
-         20.0 
-         40.0 
-         50.0 
-         60.0 
-         80.0 
-         100.0 
+<constant cols="1" digits="0" name="loadBinsVVT" rows="8" units="kPa">
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
+         255.0 
       </constant>
 <constant cols="8" digits="0" name="stagingTable" rows="8" units="%">
          0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
@@ -746,15 +767,15 @@
          6000.0 
          7000.0 
       </constant>
-<constant cols="1" digits="0" name="mapBinsStaging" rows="8" units="kPa">
-         10.0 
-         30.0 
-         46.0 
-         60.0 
-         80.0 
-         100.0 
-         120.0 
-         150.0 
+<constant cols="1" digits="0" name="loadBinsStaging" rows="8" units="kPa">
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
+         510.0 
       </constant>
 </page>
 <page number="7" size="192">
@@ -856,85 +877,85 @@
       </constant>
 </page>
 <page number="8" size="192">
-<constant name="enable_secondarySerial">"Enable"</constant>
+<constant name="enable_secondarySerial">"Disable"</constant>
 <constant name="intcan_available">"Disable"</constant>
 <constant name="enable_intcan">"Enable"</constant>
-<constant name="caninput_sel0a">"Digital_local"</constant>
+<constant name="caninput_sel0a">"Off"</constant>
 <constant name="caninput_sel0b">"Digital_local"</constant>
 <constant name="caninput_sel0extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel0extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel0extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel1a">"Digital_local"</constant>
+<constant name="caninput_sel1a">"Off"</constant>
 <constant name="caninput_sel1b">"Digital_local"</constant>
 <constant name="caninput_sel1extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel1extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel1extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel2a">"Digital_local"</constant>
+<constant name="caninput_sel2a">"Off"</constant>
 <constant name="caninput_sel2b">"Digital_local"</constant>
 <constant name="caninput_sel2extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel2extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel2extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel3a">"Digital_local"</constant>
+<constant name="caninput_sel3a">"Off"</constant>
 <constant name="caninput_sel3b">"Digital_local"</constant>
 <constant name="caninput_sel3extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel3extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel3extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel4a">"Digital_local"</constant>
+<constant name="caninput_sel4a">"Off"</constant>
 <constant name="caninput_sel4b">"Digital_local"</constant>
 <constant name="caninput_sel4extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel4extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel4extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel5a">"Digital_local"</constant>
+<constant name="caninput_sel5a">"Off"</constant>
 <constant name="caninput_sel5b">"Digital_local"</constant>
 <constant name="caninput_sel5extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel5extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel5extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel6a">"Digital_local"</constant>
+<constant name="caninput_sel6a">"Off"</constant>
 <constant name="caninput_sel6b">"Digital_local"</constant>
 <constant name="caninput_sel6extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel6extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel6extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel7a">"Digital_local"</constant>
+<constant name="caninput_sel7a">"Off"</constant>
 <constant name="caninput_sel7b">"Digital_local"</constant>
 <constant name="caninput_sel7extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel7extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel7extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel8a">"Digital_local"</constant>
+<constant name="caninput_sel8a">"Off"</constant>
 <constant name="caninput_sel8b">"Digital_local"</constant>
 <constant name="caninput_sel8extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel8extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel8extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel9a">"Digital_local"</constant>
+<constant name="caninput_sel9a">"Off"</constant>
 <constant name="caninput_sel9b">"Digital_local"</constant>
 <constant name="caninput_sel9extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel9extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel9extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel10a">"Digital_local"</constant>
+<constant name="caninput_sel10a">"Off"</constant>
 <constant name="caninput_sel10b">"Digital_local"</constant>
 <constant name="caninput_sel10extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel10extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel10extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel11a">"Digital_local"</constant>
+<constant name="caninput_sel11a">"Off"</constant>
 <constant name="caninput_sel11b">"Digital_local"</constant>
 <constant name="caninput_sel11extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel11extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel11extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel12a">"Digital_local"</constant>
+<constant name="caninput_sel12a">"Off"</constant>
 <constant name="caninput_sel12b">"Digital_local"</constant>
 <constant name="caninput_sel12extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel12extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel12extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel13a">"Digital_local"</constant>
+<constant name="caninput_sel13a">"Off"</constant>
 <constant name="caninput_sel13b">"Digital_local"</constant>
 <constant name="caninput_sel13extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel13extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel13extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel14a">"Digital_local"</constant>
+<constant name="caninput_sel14a">"Off"</constant>
 <constant name="caninput_sel14b">"Digital_local"</constant>
 <constant name="caninput_sel14extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel14extsourceb">"Via Internal CAN"</constant>
 <constant name="caninput_sel14extsourcec">"Via Internal CAN"</constant>
-<constant name="caninput_sel15a">"Digital_local"</constant>
+<constant name="caninput_sel15a">"Off"</constant>
 <constant name="caninput_sel15b">"Digital_local"</constant>
 <constant name="caninput_sel15extsourcea">"Via Secondary Serial"</constant>
 <constant name="caninput_sel15extsourceb">"Via Internal CAN"</constant>
@@ -1016,9 +1037,13 @@
 <constant name="canoutput_param_start_byte5">"0"</constant>
 <constant name="canoutput_param_start_byte6">"0"</constant>
 <constant name="canoutput_param_start_byte7">"0"</constant>
+<constant name="canoutput_param_num_bytes0">"1"</constant>
 <constant name="canoutput_param_num_bytes1">"1"</constant>
 <constant name="canoutput_param_num_bytes2">"1"</constant>
+<constant name="canoutput_param_num_bytes3">"1"</constant>
 <constant name="canoutput_param_num_bytes4">"1"</constant>
+<constant name="canoutput_param_num_bytes5">"1"</constant>
+<constant name="canoutput_param_num_bytes6">"1"</constant>
 <constant name="canoutput_param_num_bytes7">"1"</constant>
 <constant digits="0" name="unused10_110">255.0</constant>
 <constant digits="0" name="unused10_111">255.0</constant>
@@ -1060,45 +1085,50 @@
 <constant name="Auxin13pinb">"8"</constant>
 <constant name="Auxin14pinb">"7"</constant>
 <constant name="Auxin15pinb">"8"</constant>
-<constant name="iacStepperInv">"Yes"</constant>
-<constant digits="0" name="unused10_154">7.0</constant>
-<constant digits="0" name="unused10_155">20.0</constant>
-<constant digits="0" name="unused10_156">44.0</constant>
-<constant digits="0" name="unused10_157">1.0</constant>
-<constant digits="0" name="unused10_158">188.0</constant>
-<constant digits="0" name="unused10_159">2.0</constant>
-<constant digits="0" name="unused10_160">7.0</constant>
-<constant digits="0" name="unused10_161">0.0</constant>
-<constant digits="0" name="unused10_162">20.0</constant>
-<constant digits="0" name="unused10_163">40.0</constant>
-<constant digits="0" name="unused10_164">60.0</constant>
-<constant digits="0" name="unused10_165">80.0</constant>
-<constant digits="0" name="unused10_166">100.0</constant>
-<constant digits="0" name="unused10_167">0.0</constant>
-<constant digits="0" name="unused10_168">0.0</constant>
-<constant digits="0" name="unused10_169">10.0</constant>
-<constant digits="0" name="unused10_170">0.0</constant>
-<constant digits="0" name="unused10_171">20.0</constant>
-<constant digits="0" name="unused10_172">0.0</constant>
-<constant digits="0" name="unused10_173">30.0</constant>
-<constant digits="0" name="unused10_174">0.0</constant>
-<constant digits="0" name="unused10_175">40.0</constant>
-<constant digits="0" name="unused10_176">0.0</constant>
-<constant digits="0" name="unused10_177">50.0</constant>
-<constant digits="0" name="unused10_178">0.0</constant>
-<constant digits="0" name="unused10_179">0.0</constant>
-<constant digits="0" name="unused10_180">20.0</constant>
-<constant digits="0" name="unused10_181">40.0</constant>
-<constant digits="0" name="unused10_182">60.0</constant>
-<constant digits="0" name="unused10_183">80.0</constant>
-<constant digits="0" name="unused10_184">100.0</constant>
-<constant digits="0" name="unused10_185">100.0</constant>
-<constant digits="0" name="unused10_186">112.0</constant>
-<constant digits="0" name="unused10_187">125.0</constant>
-<constant digits="0" name="unused10_188">137.0</constant>
-<constant digits="0" name="unused10_189">150.0</constant>
-<constant digits="0" name="unused10_190">163.0</constant>
+<constant name="iacStepperInv">"No"</constant>
+<constant name="iacCoolTime">"1"</constant>
 <constant name="blankfield">""</constant>
+<constant name="unused10_153">""</constant>
+<constant cols="1" digits="0" name="unused10_154" rows="38">
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+         7.0 
+      </constant>
 </page>
 <page number="9" size="192">
 <constant cols="1" digits="0" name="crankingEnrichBins" rows="4" units="C">
@@ -1252,25 +1282,26 @@
 <constant digits="1" name="knock_duration" units="Sec">0.2</constant>
 <constant digits="1" name="knock_recoveryStepTime" units="Sec">0.1</constant>
 <constant digits="0" name="knock_recoveryStep" units="Deg">0.0</constant>
-<constant cols="1" digits="0" name="unused11_122_191" rows="69" units="RPM">
+<constant name="fuel2Algorithm">"MAP"</constant>
+<constant name="fuel2Mode">"Off"</constant>
+<constant name="fuel2SwitchVariable">"MAP"</constant>
+<constant digits="0" name="fuel2SwitchValue" units="kPa">120.0</constant>
+<constant name="fuel2InputPin">"25"</constant>
+<constant name="fuel2InputPolarity">"LOW"</constant>
+<constant name="fuel2InputPullup">"Yes"</constant>
+<constant digits="0" name="vvtCLholdDuty" units="%">41.0</constant>
+<constant digits="0" name="vvtCLKP" units="%">0.0</constant>
+<constant digits="0" name="vvtCLKI" units="%">0.0</constant>
+<constant digits="0" name="vvtCLKD" units="%">1.0</constant>
+<constant digits="0" name="vvtCLMinAng" units="deg">240.0</constant>
+<constant digits="0" name="vvtCLMaxAng" units="deg">561.0</constant>
+<constant cols="1" digits="0" name="unused11_122_191" rows="57" units="RPM">
          0.0 
          0.0 
          0.0 
-         0.0 
-         0.0 
-         20000.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
-         0.0 
+         700.0 
+         15100.0 
+         1400.0 
          0.0 
          0.0 
          0.0 
@@ -1324,7 +1355,63 @@
          0.0 
       </constant>
 <constant digits="0" name="UNALLOCATED_TOP_9" units="RAW">
-         101.0 
+         255.0 
+      </constant>
+</page>
+<page number="10" size="288">
+<constant cols="16" digits="0" name="veTable2" rows="16" units="%">
+         39.0 39.0 39.0 39.0 39.0 38.0 37.0 36.0 35.0 34.0 33.0 33.0 33.0 33.0 33.0 33.0 
+         40.0 40.0 41.0 42.0 42.0 41.0 40.0 39.0 39.0 39.0 39.0 39.0 40.0 40.0 40.0 40.0 
+         40.0 42.0 43.0 46.0 46.0 45.0 44.0 43.0 42.0 42.0 43.0 43.0 43.0 44.0 44.0 44.0 
+         42.0 45.0 47.0 51.0 51.0 49.0 48.0 47.0 46.0 46.0 46.0 47.0 47.0 47.0 48.0 48.0 
+         44.0 49.0 52.0 56.0 55.0 54.0 52.0 51.0 50.0 50.0 50.0 50.0 51.0 51.0 51.0 52.0 
+         48.0 54.0 58.0 61.0 59.0 58.0 56.0 55.0 54.0 53.0 54.0 54.0 54.0 55.0 55.0 55.0 
+         54.0 61.0 64.0 66.0 64.0 62.0 61.0 59.0 58.0 57.0 57.0 58.0 58.0 59.0 59.0 59.0 
+         60.0 67.0 70.0 70.0 68.0 67.0 65.0 63.0 62.0 61.0 61.0 61.0 62.0 63.0 63.0 63.0 
+         67.0 74.0 76.0 75.0 73.0 71.0 69.0 68.0 66.0 64.0 65.0 65.0 66.0 66.0 67.0 67.0 
+         74.0 80.0 81.0 79.0 77.0 75.0 73.0 72.0 70.0 68.0 68.0 69.0 69.0 70.0 70.0 71.0 
+         81.0 85.0 86.0 84.0 82.0 80.0 78.0 76.0 74.0 72.0 72.0 72.0 73.0 74.0 74.0 74.0 
+         87.0 91.0 91.0 88.0 86.0 84.0 82.0 80.0 78.0 76.0 76.0 76.0 77.0 78.0 78.0 78.0 
+         93.0 93.0 93.0 93.0 93.0 90.0 88.0 86.0 84.0 83.0 83.0 83.0 84.0 85.0 85.0 86.0 
+         93.0 93.0 93.0 93.0 93.0 92.0 90.0 88.0 86.0 86.0 86.0 87.0 88.0 89.0 89.0 90.0 
+         93.0 93.0 93.0 93.0 93.0 93.0 93.0 90.0 90.0 90.0 90.0 91.0 92.0 93.0 93.0 93.0 
+         93.0 93.0 93.0 93.0 93.0 93.0 93.0 93.0 93.0 93.0 93.0 93.0 93.0 93.0 93.0 95.0 
+      </constant>
+<constant cols="1" digits="0" name="fuelRPM2Bins" rows="16" units="RPM">
+         500.0 
+         700.0 
+         900.0 
+         1400.0 
+         2000.0 
+         2800.0 
+         3600.0 
+         4500.0 
+         5200.0 
+         5500.0 
+         5800.0 
+         6200.0 
+         6500.0 
+         6800.0 
+         6900.0 
+         7000.0 
+      </constant>
+<constant cols="1" digits="0" name="fuelLoad2Bins" rows="16" units="kPa">
+         16.0 
+         26.0 
+         30.0 
+         36.0 
+         40.0 
+         46.0 
+         50.0 
+         56.0 
+         60.0 
+         66.0 
+         70.0 
+         76.0 
+         86.0 
+         90.0 
+         96.0 
+         100.0 
       </constant>
 </page>
 <settings Comment="These setting are only used if this msq is opened without a project.">
