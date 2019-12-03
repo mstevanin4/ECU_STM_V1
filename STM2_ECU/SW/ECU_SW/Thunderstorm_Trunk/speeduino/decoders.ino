@@ -3078,7 +3078,7 @@ void triggerSetup_ThirtySixMinus222()
   triggerActualTeeth = 30; //The number of physical teeth on the wheel. Doing this here saves us a calculation each time in the interrupt
   triggerFilterTime = (int)(1000000 / (MAX_RPM / 60 * configPage4.triggerTeeth)); //Trigger filter time is the shortest possible time (in uS) that there can be between crank teeth (ie at max RPM). Any pulses that occur faster than this time will be disgarded as noise
   secondDerivEnabled = false;
-  decoderIsSequential = false;
+  decoderIsSequential = true;
   checkSyncToothCount = (configPage4.triggerTeeth) >> 1; //50% of the total teeth.
   toothLastMinusOneToothTime = 0;
   toothCurrentCount = 0;
@@ -3164,9 +3164,15 @@ void triggerPri_ThirtySixMinus222()
    }
 }
 
-void triggerSec_ThirtySixMinus222()
+void triggerSec_ThirtySixMinus222()   //ECU_STM2
 {
-  //NOT USED - This pattern uses the missing tooth version of this function
+  if (!currentStatus.RPM && secSync)
+    secSync = 0;
+  if (secSync <= 3)
+  {
+    revolutionOne = 1; //Sequential revolution reset
+    secSync++;
+  }
 }
 
 int getCrankAngle_ThirtySixMinus222()

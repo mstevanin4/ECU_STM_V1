@@ -368,6 +368,8 @@ volatile byte toothHistorySerialIndex = 0;
   byte primaryTriggerEdge;
   byte secondaryTriggerEdge;
 
+byte secSync = 0;
+
 int CRANK_ANGLE_MAX = 720;
 int CRANK_ANGLE_MAX_IGN = 360;
 int CRANK_ANGLE_MAX_INJ = 360; //The number of crank degrees that the system track over. 360 for wasted / timed batch and 720 for sequential
