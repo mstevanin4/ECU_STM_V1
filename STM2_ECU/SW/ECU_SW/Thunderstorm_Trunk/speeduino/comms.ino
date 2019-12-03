@@ -238,7 +238,7 @@ void command()
       break;
 
     case 'Q': // send code version
-      Serial.print(F("speeduino 201909"));
+      Serial.print(F("speeduino 201911"));
       break;
 
     case 'r': //New format for the optimised OutputChannels
@@ -268,7 +268,7 @@ void command()
       break;
 
     case 'S': // send code version
-      Serial.print(F("Speeduino 2019.09"));
+      Serial.print(F("Speeduino 2019.11"));
       currentStatus.secl = 0; //This is required in TS3 due to its stricter timings
       break;
 
@@ -613,6 +613,7 @@ void sendValues(uint16_t offset, uint16_t packetLength, byte cmd, byte portNum)
   fullStatus[95] = currentStatus.vvtDuty;
   fullStatus[96] = lowByte(currentStatus.flexBoostCorrection);
   fullStatus[97] = highByte(currentStatus.flexBoostCorrection);
+  fullStatus[98] = currentStatus.baroCorrection;
 
   for(byte x=0; x<packetLength; x++)
   {
@@ -772,6 +773,7 @@ void receiveValue(uint16_t valueOffset, byte newValue)
           //This should never happen. It means there's an invalid offset value coming through
         }
       }
+      fuelTable.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
       break;
 
     case veSetPage:
@@ -794,7 +796,7 @@ void receiveValue(uint16_t valueOffset, byte newValue)
         if (valueOffset < 272)
         {
           //X Axis
-          ignitionTable.axisX[(valueOffset - 256)] = (int)(newValue) * TABLE_RPM_MULTIPLIER; //The RPM values sent by megasquirt are divided by 100, need to multiple it back by 100 to make it correct
+          ignitionTable.axisX[(valueOffset - 256)] = (int)(newValue) * TABLE_RPM_MULTIPLIER; //The RPM values sent by TunerStudio are divided by 100, need to multiple it back by 100 to make it correct
         }
         else if(valueOffset < 288)
         {
@@ -803,6 +805,7 @@ void receiveValue(uint16_t valueOffset, byte newValue)
           ignitionTable.axisY[tempOffset] = (int)(newValue) * TABLE_LOAD_MULTIPLIER;
         }
       }
+      ignitionTable.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
       break;
 
     case ignSetPage:
@@ -825,7 +828,7 @@ void receiveValue(uint16_t valueOffset, byte newValue)
         if (valueOffset < 272)
         {
           //X Axis
-          afrTable.axisX[(valueOffset - 256)] = int(newValue) * TABLE_RPM_MULTIPLIER; //The RPM values sent by megasquirt are divided by 100, need to multiply it back by 100 to make it correct (TABLE_RPM_MULTIPLIER)
+          afrTable.axisX[(valueOffset - 256)] = int(newValue) * TABLE_RPM_MULTIPLIER; //The RPM values sent by TunerStudio are divided by 100, need to multiply it back by 100 to make it correct (TABLE_RPM_MULTIPLIER)
         }
         else
         {
@@ -835,6 +838,7 @@ void receiveValue(uint16_t valueOffset, byte newValue)
 
         }
       }
+      afrTable.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
       break;
 
     case afrSetPage:
@@ -891,6 +895,9 @@ void receiveValue(uint16_t valueOffset, byte newValue)
         tempOffset = valueOffset - 232;
         stagingTable.axisY[(7 - tempOffset)] = int(newValue) * TABLE_LOAD_MULTIPLIER;
       }
+      boostTable.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
+      vvtTable.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
+      stagingTable.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
       break;
 
     case seqFuelPage:
@@ -910,6 +917,10 @@ void receiveValue(uint16_t valueOffset, byte newValue)
       else if (valueOffset < 186) { tempOffset = valueOffset - 180; trim4Table.axisX[tempOffset] = int(newValue) * TABLE_RPM_MULTIPLIER; } //New value is on the X (RPM) axis of the table. The RPM values sent by TunerStudio are divided by 100, need to multiply it back by 100 to make it correct (TABLE_RPM_MULTIPLIER)
       else if (valueOffset < 192) { tempOffset = valueOffset - 186; trim4Table.axisY[(5 - tempOffset)] = int(newValue) * TABLE_LOAD_MULTIPLIER; } //New value is on the Y (Load) axis of the table
 
+      trim1Table.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
+      trim2Table.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
+      trim3Table.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
+      trim4Table.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
       break;
 
     case canbusPage:
@@ -954,6 +965,7 @@ void receiveValue(uint16_t valueOffset, byte newValue)
           //This should never happen. It means there's an invalid offset value coming through
         }
       }
+      fuelTable2.cacheIsValid = false; //Invalid the tables cache to ensure a lookup of new values
       break;
 
     default:
@@ -1126,7 +1138,7 @@ void sendPageASCII()
       Serial.println((const __FlashStringHelper *)&pageTitles[27]);//27 is the index to the first char in the second sting in pageTitles
       // The following loop displays in human readable form of all byte values in config page 1 up to but not including the first array.
       // incrementing void pointers is cumbersome. Thus we have "pnt_configPage = (byte *)pnt_configPage + 1"
-      for (pnt_configPage = &configPage2; pnt_configPage < &configPage2.wueValues[0]; pnt_configPage = (byte *)pnt_configPage + 1) { Serial.println(*((byte *)pnt_configPage)); }
+      for (pnt_configPage = (byte *)&configPage2; pnt_configPage < &configPage2.wueValues[0]; pnt_configPage = (byte *)pnt_configPage + 1) { Serial.println(*((byte *)pnt_configPage)); }
       for (byte x = 10; x; x--)// The x between the ';' has the same representation as the "x != 0" test or comparision
       {
         Serial.print(configPage2.wueValues[10 - x]);// This displays the values horizantially on the screen
@@ -1204,7 +1216,7 @@ void sendPageASCII()
       //currentTitleIndex = 91;
       //To Display Values from Config Page 3
       Serial.println((const __FlashStringHelper *)&pageTitles[91]);//special typecasting to enable suroutine that the F macro uses
-      for (pnt_configPage = &configPage6; pnt_configPage < &configPage6.voltageCorrectionBins[0]; pnt_configPage = (byte *)pnt_configPage + 1)
+      for (pnt_configPage = (byte *)&configPage6; pnt_configPage < &configPage6.voltageCorrectionBins[0]; pnt_configPage = (byte *)pnt_configPage + 1)
       {
         Serial.println(*((byte *)pnt_configPage));// Displaying byte values of config page 3 up to but not including the first array
       }
@@ -1641,9 +1653,14 @@ void receiveCalibration(byte tableID)
   bool every2nd = true;
   int x;
   int counter = 0;
-  pinMode(LED_BUILTIN, OUTPUT); //pinMode(13, OUTPUT);
+  bool useLEDIndicator = false;
+  if (pinIsOutput(LED_BUILTIN) == false)
+  {
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, LOW);
+    useLEDIndicator = true;
+  }
 
-  digitalWrite(LED_BUILTIN, LOW); //digitalWrite(13, LOW);
   for (x = 0; x < 1024; x++)
   {
     //UNlike what is listed in the protocol documentation, the O2 sensor values are sent as bytes rather than ints
@@ -1680,11 +1697,14 @@ void receiveCalibration(byte tableID)
       storeCalibrationValue(y, (byte)tempValue);
 
       every2nd = false;
-      #if defined(CORE_STM32)
-        digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-      #else
-        analogWrite(LED_BUILTIN, (counter % 50) ); //analogWrite(13, (counter % 50) );
-      #endif
+      if(useLEDIndicator == true)
+      {
+        #if defined(CORE_STM32)
+          digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+        #else
+          analogWrite(LED_BUILTIN, (counter % 50) );
+        #endif
+      }
       counter++;
     }
     else {
