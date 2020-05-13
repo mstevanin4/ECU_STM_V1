@@ -3195,7 +3195,7 @@ void triggerSec_ThirtySixMinus222()   //ECU_STM2
 {
   if (!currentStatus.RPM && secSync)
     secSync = 0;
-  if (secSync <= 3)
+  if (secSync <= 1)
   {
     revolutionOne = 1; //Sequential revolution reset
     secSync++;
