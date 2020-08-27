@@ -38,8 +38,8 @@ struct table2D iacCrankDutyTable;
 struct StepperIdle idleStepper;
 bool idleOn; //Simply tracks whether idle was on last time around
 byte idleInitComplete = 99; //TRacks which idle method was initialised. 99 is a method that will never exist
-unsigned int iacStepTime;
-unsigned int iacCoolTime;
+unsigned int iacStepTime_uS;
+unsigned int iacCoolTime_uS;
 unsigned int completedHomeSteps;
 
 volatile PORT_TYPE *idle_pin_port;
@@ -51,7 +51,7 @@ volatile bool idle_pwm_state;
 unsigned int idle_pwm_max_count; //Used for variable PWM frequency
 volatile unsigned int idle_pwm_cur_value;
 long idle_pid_target_value;
-long idle_pwm_target_value;
+unsigned long idle_pwm_target_value;
 long idle_cl_target_rpm;
 byte idleCounter; //Used for tracking the number of calls to the idle control function
 
