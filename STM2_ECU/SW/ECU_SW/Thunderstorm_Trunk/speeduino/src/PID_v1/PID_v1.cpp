@@ -570,7 +570,7 @@ bool integerPID_ideal::Compute()
 
       ITerm += error;
 
-      uint16_t bias = 50; //Base target DC%
+      uint16_t bias = (outMax + outMin) / 2; //Base target DC%
       long output = 0;
 
       if(ki != 0)
