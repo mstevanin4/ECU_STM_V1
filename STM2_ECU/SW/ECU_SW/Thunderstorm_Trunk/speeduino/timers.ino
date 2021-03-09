@@ -18,6 +18,7 @@ Timers are typically low resolution (Compared to Schedulers), with maximum frequ
 #include "speeduino.h"
 #include "scheduler.h"
 #include "auxiliaries.h"
+#include "comms.h"
 
 #if defined(CORE_AVR)
   #include <avr/wdt.h>
@@ -95,6 +96,7 @@ void oneMSInterval() //Most ARM chips can simply call a function
       tachoOutputFlag = DEACTIVE;
     }
   }
+  // Tacho sweep
   
 
 
@@ -124,7 +126,7 @@ void oneMSInterval() //Most ARM chips can simply call a function
     if ( BIT_CHECK(currentStatus.engine, BIT_ENGINE_RUN) ) { runSecsX10++; }
     else { runSecsX10 = 0; }
 
-    if ( (seclx10 == configPage2.primingDelay) && (currentStatus.RPM == 0) ) { beginInjectorPriming(); }
+    if ( (injPrimed == false) && (seclx10 == configPage2.primingDelay) && (currentStatus.RPM == 0) ) { beginInjectorPriming(); injPrimed = true; }
     seclx10++;
   }
 
