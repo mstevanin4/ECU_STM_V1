@@ -1493,14 +1493,20 @@ void setPinMapping(byte boardID)
 	  pinBat = A15; //Battery reference voltage pin
 	  //pinDisplayReset = A13; // OLED reset pin NOT DEFINE ECU_STM2!!!
 	  pinTachOut = 24; //Tacho output pin  (Goes to ULN2803)
-	  pinIdle1 = 48; //Single wire idle control !!changed ECU_STM2!!!
-	  pinIdle2 = 49; //2 wire idle control !! changed ECU_STM2!!!
+    if( (configPage6.iacAlgorithm == IAC_ALGORITHM_STEP_CL) || (configPage6.iacAlgorithm == IAC_ALGORITHM_STEP_OL) )
+    {
+      pinStepperDir = 48; //Direction pin  for DRV8825 driver
+      pinStepperStep = 49; //Step pin for DRV8825 driver
+      pinStepperEnable = 2; //Enable pin for DRV8825
+    }
+    else
+    {
+  	  pinIdle1 = 48; //Single wire idle control !!changed ECU_STM2!!!
+  	  pinIdle2 = 49; //2 wire idle control !! changed ECU_STM2!!!
+    }
 	  pinBoost = 17; //Boost control changed for ECU_STM2
 	  pinVVT_1 = 3; //Put on "AUX1_DRV" NOT DEFINE ECU_STM2!!!
 	  pinFuelPump = 5; //Fuel pump output
-	  //pinStepperDir = 48; //Direction pin  for DRV8825 driver
-	  //pinStepperStep = 49; //Step pin for DRV8825 driver
-	  //pinStepperEnable = 24; //Enable pin for DRV8825
 	  pinFan = 4; //Pin for the fan output (Goes to ULN2803)
 	  pinLaunch = 22; //Can be overwritten below ECU_STM2 
 	  pinFlex = 20; // Flex sensor (Must be external interrupt enabled) // ECU_STM2    
