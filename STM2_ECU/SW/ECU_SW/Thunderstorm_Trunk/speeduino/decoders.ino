@@ -2786,6 +2786,7 @@ void triggerPri_Subaru67()
      {
         case 0:
           //If no teeth have passed, we can't do anything
+          secondaryToothCount = 0;
           break;
 
         case 1:
@@ -2794,13 +2795,11 @@ void triggerPri_Subaru67()
           break;
 
         case 2:
-          toothCurrentCount = 8;
-          //currentStatus.hasSync = true;
           secondaryToothCount = 0;
           break;
 
         case 3:
-          //toothCurrentCount = 2;
+          toothCurrentCount = 2;
           if( toothCurrentCount == 2)
           {
             currentStatus.hasSync = true;
@@ -2842,24 +2841,6 @@ void triggerPri_Subaru67()
       else if(toothCurrentCount == 2) { triggerToothAngle = 93; } //Special case for tooth 2
       else { triggerToothAngle = toothAngles[(toothCurrentCount-1)] - toothAngles[(toothCurrentCount-2)]; }
       triggerToothAngleIsCorrect = true;
-
-
-      //NEW IGNITION MODE
-      if( (configPage2.perToothIgn == true) && (!BIT_CHECK(currentStatus.engine, BIT_ENGINE_CRANK)) ) 
-      {
-        int16_t crankAngle = toothAngles[(toothCurrentCount - 1)] + configPage4.triggerAngle;
-        if( (configPage4.sparkMode != IGN_MODE_SEQUENTIAL) )
-        {
-          crankAngle = ignitionLimits( toothAngles[(toothCurrentCount-1)] );
-
-          //Handle non-sequential tooth counts 
-          if( (configPage4.sparkMode != IGN_MODE_SEQUENTIAL) && (toothCurrentCount > 6) ) { checkPerToothTiming(crankAngle, (toothCurrentCount-6) ); }
-          else { checkPerToothTiming(crankAngle, toothCurrentCount); }
-        }
-        else{ checkPerToothTiming(crankAngle, toothCurrentCount); }
-      }
-   //Recalc the new filter value
-   //setFilter(curGap);
    }
  }
 
@@ -2867,35 +2848,9 @@ void triggerSec_Subaru67()
 {
   if( (toothSystemCount == 0) || (toothSystemCount == 3) )
   {
-    curTime2 = micros();
-    curGap2 = curTime2 - toothLastSecToothTime;
-    
-    if ( curGap2 > triggerSecFilterTime ) 
-    {
-      toothLastSecToothTime = curTime2;
-      secondaryToothCount++;
-      toothSystemCount = 0;
-
-      if(secondaryToothCount > 1)
-      {
-        //Set filter at 25% of the current speed
-        //Note that this can only be set on the 2nd or 3rd cam tooth in each set. 
-        triggerSecFilterTime = curGap2 >> 2;
-      }
-      else { triggerSecFilterTime = 0; } //Filter disabled
-
-    }
+    secondaryToothCount++;
+    toothSystemCount = 0;
   }
-  else
-  {
-    //Sanity check
-    if(toothSystemCount > 3)
-    { 
-      toothSystemCount = 0; 
-      secondaryToothCount = 1;
-    }
-  }
-
 }
 
 uint16_t getRPM_Subaru67()
