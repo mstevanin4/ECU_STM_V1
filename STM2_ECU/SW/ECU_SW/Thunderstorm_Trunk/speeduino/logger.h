@@ -10,7 +10,7 @@
 #define LOGGER_H
 
 #ifndef UNIT_TEST // Scope guard for unit testing
-  #define LOG_ENTRY_SIZE      117 /**< The size of the live data packet. This MUST match ochBlockSize setting in the ini file */
+  #define LOG_ENTRY_SIZE      117 /*  //ECU_STM2 *< The size of the live data packet. This MUST match ochBlockSize setting in the ini file */
   #define SD_LOG_ENTRY_SIZE   117 /**< The size of the live data packet used by the SD car.*/
 #else
   #define LOG_ENTRY_SIZE      1 /**< The size of the live data packet. This MUST match ochBlockSize setting in the ini file */

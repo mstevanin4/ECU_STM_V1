@@ -379,6 +379,21 @@ void loop()
     calculateSecondaryFuel();
     calculateSecondarySpark();
 
+    // ECU_STM2 add possibility to have independent load source for AFR target map
+    if (configPage10.fuel2Algorithm == LOAD_SOURCE_MAP) //Check which fuelling algorithm is being used
+      {
+        currentStatus.afrTargetLoad = currentStatus.MAP;
+      }
+      else if (configPage10.fuel2Algorithm == LOAD_SOURCE_TPS)
+      {
+        currentStatus.afrTargetLoad = currentStatus.TPS;
+      }
+      else if (configPage10.fuel2Algorithm == LOAD_SOURCE_IMAPEMAP)
+      {
+        currentStatus.afrTargetLoad = (currentStatus.MAP * 100) / currentStatus.EMAP;
+      }
+      else { currentStatus.afrTargetLoad = currentStatus.MAP; }
+
     //Always check for sync
     //Main loop runs within this clause
     if (currentStatus.hasSync && (currentStatus.RPM > 0))

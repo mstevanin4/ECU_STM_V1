@@ -773,15 +773,18 @@ byte getStatusEntry(uint16_t byteNum)
       if(currentStatus.loopsPerSecond > 60000) { currentStatus.loopsPerSecond = 60000;}
       statusValue = highByte(currentStatus.loopsPerSecond); 
       break;
-    
-    case 27: 
-      currentStatus.freeRAM = freeRam();
-      statusValue = lowByte(currentStatus.freeRAM); //(byte)((currentStatus.loopsPerSecond >> 8) & 0xFF);
-      break; 
-    case 28: 
-      currentStatus.freeRAM = freeRam();
-      statusValue = highByte(currentStatus.freeRAM); 
-      break;
+
+    // ECU_STM2
+//    case 27: 
+//      currentStatus.freeRAM = freeRam();
+//      statusValue = lowByte(currentStatus.freeRAM); //(byte)((currentStatus.loopsPerSecond >> 8) & 0xFF);
+//      break; 
+//    case 28: 
+//      currentStatus.freeRAM = freeRam();
+//      statusValue = highByte(currentStatus.freeRAM); 
+//      break;
+    case 27: statusValue = lowByte(currentStatus.afrTargetLoad); break; 
+    case 28: statusValue = highByte(currentStatus.afrTargetLoad); break;
 
     case 29: statusValue = (byte)(currentStatus.boostTarget >> 1); break; //Divide boost target by 2 to fit in a byte
     case 30: statusValue = (byte)(currentStatus.boostDuty / 100); break;

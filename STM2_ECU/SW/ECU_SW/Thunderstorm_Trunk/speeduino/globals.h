@@ -650,6 +650,7 @@ struct statuses {
   byte vvt2Duty;
   byte outputsStatus;
   byte TS_SD_Status; //TunerStudios SD card status
+  int16_t afrTargetLoad;  //ECU_STM2
 };
 
 /**

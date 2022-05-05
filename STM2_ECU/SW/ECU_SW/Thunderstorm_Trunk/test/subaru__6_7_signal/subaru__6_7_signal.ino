@@ -2,7 +2,7 @@
 #define PIN_CAM 12
 
 float revPerd = 0.0;
-float engSpd = 6000.0;
+float engSpd = 620.0;
 int incr = 0;
 
 void setup() {
@@ -19,7 +19,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   if(engSpd > 8000)
     incr = -10;
-  else if(engSpd < 500)
+  else if(engSpd < 20)
     incr = 10;
   engSpd = engSpd + incr;
   revPerd = (1000000.0 / engSpd) * 60.0;
@@ -128,7 +128,6 @@ void loop() {
 
 //  Serial.print("revPerd: ");
 //  Serial.println(revPerd, 6);
-//  Serial.print((uint16_t)(revPerd * 107.0/360.0));
   
 
 }
