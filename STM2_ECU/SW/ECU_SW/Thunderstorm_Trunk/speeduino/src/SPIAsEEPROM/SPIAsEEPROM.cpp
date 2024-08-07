@@ -163,11 +163,8 @@ int8_t FLASH_EEPROM_BaseClass::write(uint16_t addressEEPROM, byte val){
       //determine the adress of the byte in the address translation section where one bit must be reset when writing new values 
       uint8_t AdressInAddressTranslation = (_nrOfOnes - 1)/8;
 
-      //determine value of the infoblock byte after writing one more time.
-      uint8_t ValueInAddressTranslation = 0xFF << (8 - (_nrOfOnes - 1 - ((AdressInAddressTranslation) * 8)));  
-      
       //write the new adress translation value at the new location in buffer
-      _ReadWriteBuffer[AdressInAddressTranslation] = ValueInAddressTranslation;
+      _ReadWriteBuffer[AdressInAddressTranslation] <<= 1;
 
       //Write the new EEPROM value at the new location in the buffer.
       _nrOfOnes--; 
@@ -226,22 +223,28 @@ int8_t FLASH_EEPROM_BaseClass::writeMagicNumbers(uint32_t sector){
 }
 
 uint16_t FLASH_EEPROM_BaseClass::count(byte* buffer, uint32_t length){
-    byte tempBuffer[length];
-    memcpy(&tempBuffer, buffer, length);
-    uint16_t count=0;
-    for(uint8_t j=0; j < length; j++)
-      for(uint8_t i=0; i<8; i++){
-        if((tempBuffer[j] & 1) == 1){ //if current bit 1
-          count++;//increase count
-        }
-        tempBuffer[j]=tempBuffer[j]>>1;//right shift
+  byte tempBuffer[length];
+  memcpy(&tempBuffer, buffer, length);
+  uint16_t count = _Flash_Size_Per_EEPROM_Byte; //It is faster to count the zeroes
+  for(int8_t j=(length-1); j >= 0; j--)
+  {
+    if (tempBuffer[j] == 0) { count -= 8; } //Skip 8 shifts
+    else if(tempBuffer[j] == 255) { break; }//Next bytes are 0xFF
+    else
+    {
+      while ((tempBuffer[j] & 0x01) == 0)
+      {
+        tempBuffer[j] >>= 1;
+        count--;
       }
-    return count;
+    }
+  }
+  return count;
 }
 
-int8_t FLASH_EEPROM_BaseClass::readFlashBytes(uint32_t address , byte* buffer, uint32_t length){return -1;}
-int8_t FLASH_EEPROM_BaseClass::writeFlashBytes(uint32_t address, byte* buffer, uint32_t length){return -1;}
-int8_t FLASH_EEPROM_BaseClass::eraseFlashSector(uint32_t address, uint32_t length){return -1;}
+int8_t FLASH_EEPROM_BaseClass::readFlashBytes(uint32_t address __attribute__((__unused__)), byte* buffer __attribute__((__unused__)), uint32_t length __attribute__((__unused__))){return -1;}
+int8_t FLASH_EEPROM_BaseClass::writeFlashBytes(uint32_t address __attribute__((__unused__)), byte* buffer __attribute__((__unused__)), uint32_t length __attribute__((__unused__))){return -1;}
+int8_t FLASH_EEPROM_BaseClass::eraseFlashSector(uint32_t address __attribute__((__unused__)), uint32_t length __attribute__((__unused__))){return -1;}
 
 
 #if defined(ARDUINO_ARCH_STM32)
@@ -265,7 +268,7 @@ byte SPI_EEPROM_Class::read(uint16_t addressEEPROM){
 int8_t SPI_EEPROM_Class::begin(SPIClass &_spi, uint8_t pinSPIFlash_CS=6){
     pinMode(pinSPIFlash_CS, OUTPUT);
     bool flashavailable;
-    flashavailable = winbondSPIFlash.begin(_W25Q16,_spi, pinSPIFlash_CS);
+    flashavailable = winbondSPIFlash.begin(winbondFlashClass::partNumber::autoDetect, _spi, pinSPIFlash_CS);
     return FLASH_EEPROM_BaseClass::initialize(flashavailable);
 }    
 
@@ -391,6 +394,14 @@ int8_t InternalSTM32F4_EEPROM_Class::writeFlashBytes(uint32_t flashAddress, byte
   uint16_t data = 0;
   uint32_t offset = 0;
   uint32_t countaddress = translatedAddress; 
+
+  //Clear any flash errors before try writing to flash to prevent write failures.
+  if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_WRPERR) != RESET) __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_WRPERR);
+  if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGAERR) != RESET) __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_PGAERR);
+  if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGPERR) != RESET) __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_PGPERR);
+  if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGSERR) != RESET) __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_PGSERR);
+  if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_OPERR ) != RESET) __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_OPERR);
+  
   HAL_FLASH_Unlock();
   while (countaddress < translatedAddress + length) {
       memcpy(&data, buf + offset, sizeof(uint16_t));
