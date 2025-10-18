@@ -607,7 +607,7 @@ uint8_t calculateAfrTarget(table3d16RpmLoad &afrLookUpTable, const statuses &cur
     //Determine whether the Y axis of the AFR target table tshould be MAP (Speed-Density) or TPS (Alpha-N)
     //Note that this should only run after the sensor warmup delay when using Include AFR option,
     if( current.runSecs > page6.ego_sdelay) { 
-      return get3DTableValue(&afrLookUpTable, current.fuelLoad, current.RPM); 
+      return get3DTableValue(&afrLookUpTable, current.afrTargetLoad, current.RPM); //ECU_STM2 was fuelLoad
     }
     return current.O2; //Catch all
   }

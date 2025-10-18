@@ -324,21 +324,21 @@ void __attribute__((always_inline)) loop(void)
         for (byte AuxinChan = 0; AuxinChan <16 ; AuxinChan++)
         {
           currentStatus.current_caninchannel = AuxinChan;          
-          
-          if (((configPage9.caninput_sel[currentStatus.current_caninchannel]&12) == 4) 
-              && (((configPage9.enable_secondarySerial == 1) && ((configPage9.enable_intcan == 0)&&(configPage9.intcan_available == 1)))
-              || ((configPage9.enable_secondarySerial == 1) && ((configPage9.enable_intcan == 1)&&(configPage9.intcan_available == 1))&& 
-              ((configPage9.caninput_sel[currentStatus.current_caninchannel]&64) == 0))
-              || ((configPage9.enable_secondarySerial == 1) && ((configPage9.enable_intcan == 1)&&(configPage9.intcan_available == 0)))))              
-          { //if current input channel is enabled as external & secondary serial enabled & internal can disabled(but internal can is available)
-            // or current input channel is enabled as external & secondary serial enabled & internal can enabled(and internal can is available)
-            //currentStatus.canin[13] = 11;  Dev test use only!
+          //ECU_STM2
+//          if (((configPage9.caninput_sel[currentStatus.current_caninchannel]&12) == 4) 
+//              && (((configPage9.enable_secondarySerial == 1) && ((configPage9.enable_intcan == 0)&&(configPage9.intcan_available == 1)))
+//              || ((configPage9.enable_secondarySerial == 1) && ((configPage9.enable_intcan == 1)&&(configPage9.intcan_available == 1))&& 
+//              ((configPage9.caninput_sel[currentStatus.current_caninchannel]&64) == 0))
+//              || ((configPage9.enable_secondarySerial == 1) && ((configPage9.enable_intcan == 1)&&(configPage9.intcan_available == 0)))))              
+//          { //if current input channel is enabled as external & secondary serial enabled & internal can disabled(but internal can is available)
+//            // or current input channel is enabled as external & secondary serial enabled & internal can enabled(and internal can is available)
+//            //currentStatus.canin[13] = 11;  Dev test use only!
             if (configPage9.enable_secondarySerial == 1)  // megas only support can via secondary serial
             {
               sendCancommand(2,0,currentStatus.current_caninchannel,0,((configPage9.caninput_source_can_address[currentStatus.current_caninchannel]&2047)+0x100));
               //send an R command for data from caninput_source_address[currentStatus.current_caninchannel] from secondarySerial
             }
-          }  
+          //}  
           else if (((configPage9.caninput_sel[currentStatus.current_caninchannel]&12) == 4) 
               && (((configPage9.enable_secondarySerial == 1) && ((configPage9.enable_intcan == 1)&&(configPage9.intcan_available == 1))&& 
               ((configPage9.caninput_sel[currentStatus.current_caninchannel]&64) == 64))
@@ -416,6 +416,20 @@ void __attribute__((always_inline)) loop(void)
 
     calculateSecondaryFuel();
     calculateSecondarySpark();
+	// ECU_STM2 add possibility to have independent load source for AFR target map
+    if (configPage10.fuel2Algorithm == LOAD_SOURCE_MAP) //Check which fuelling algorithm is being used
+	  {
+		currentStatus.afrTargetLoad = currentStatus.MAP;
+	  }
+	  else if (configPage10.fuel2Algorithm == LOAD_SOURCE_TPS)
+	  {
+		currentStatus.afrTargetLoad = currentStatus.TPS;
+	  }
+	  else if (configPage10.fuel2Algorithm == LOAD_SOURCE_IMAPEMAP)
+	  {
+		currentStatus.afrTargetLoad = (currentStatus.MAP * 100) / currentStatus.EMAP;
+	  }
+	  else { currentStatus.afrTargetLoad = currentStatus.MAP; }
 
     //Always check for sync
     //Main loop runs within this clause

@@ -182,7 +182,7 @@ void initialiseAll(void)
     {
       //First time running on this board
       resetConfigPages();
-      setPinMapping(3); //Force board to v0.4
+      setPinMapping(4); //Force board to v0.4
     }
     else { setPinMapping(configPage2.pinMapping); }
 
@@ -1590,6 +1590,50 @@ void setPinMapping(byte boardID)
         pinTrigger2 = PC15; //The Cam Sensor pin
       #endif
       break;
+	  
+	case 4:    //Board ECU_STM2 V1
+	  //Pin mappings as per the Board ECU_STM2 V1
+	  pinInjector1 = 7; //Output pin injector 1 is on
+	  pinInjector2 = 8; //Output pin injector 2 is on
+	  pinInjector3 = 6; //Output pin injector 3 is on
+	  pinInjector4 = 9; //Output pin injector 4 is on
+	  pinInjector5 = 16; //Output pin injector 5 is on
+	  pinInjector6 = 45;
+	  pinCoil1 = 12; //Pin for coil 1
+	  pinCoil2 = 10; //Pin for coil 2
+	  pinCoil3 = 13; //Pin for coil 3
+	  pinCoil4 = 53; //Pin for coil 4
+	  pinCoil5 = 11; //Pin for coil 5 PLACEHOLDER value for now
+	  pinCoil6 = 44;
+	  pinTrigger = 18; //The CAS pin
+	  pinTrigger2 = 19; //The Cam Sensor pin
+	  pinTPS = A12;//TPS input pin
+	  pinMAP = A5; //MAP sensor pin
+	  pinIAT = A7; //IAT sensor pin
+	  pinCLT = A8; //CLS sensor pin
+	  pinO2 = A14; //O2 Sensor pin
+	  pinBat = A15; //Battery reference voltage pin
+	  //pinDisplayReset = A13; // OLED reset pin NOT DEFINE ECU_STM2!!!
+	  pinTachOut = 24; //Tacho output pin  (Goes to ULN2803)
+    if( (configPage6.iacAlgorithm == IAC_ALGORITHM_STEP_CL) || (configPage6.iacAlgorithm == IAC_ALGORITHM_STEP_OL) )
+    {
+      pinStepperDir = 48; //Direction pin  for DRV8825 driver
+      pinStepperStep = 49; //Step pin for DRV8825 driver
+      pinStepperEnable = 2; //Enable pin for DRV8825
+    }
+    else
+    {
+  	  pinIdle1 = 48; //Single wire idle control !!changed ECU_STM2!!!
+  	  pinIdle2 = 49; //2 wire idle control !! changed ECU_STM2!!!
+    }
+	  pinBoost = 17; //Boost control changed for ECU_STM2
+	  pinVVT_1 = 3; //Put on "AUX1_DRV" NOT DEFINE ECU_STM2!!!
+	  pinFuelPump = 5; //Fuel pump output
+	  pinFan = 4; //Pin for the fan output (Goes to ULN2803)
+	  pinLaunch = 22; //Can be overwritten below ECU_STM2 
+	  pinFlex = 20; // Flex sensor (Must be external interrupt enabled) // ECU_STM2    
+    	break;
+
 
     case 6:
       #ifndef SMALL_FLASH_MODE

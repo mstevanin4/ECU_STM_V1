@@ -15,9 +15,6 @@
 
 #include <FlexCAN.h>
 
-//#ifndef __MK66FX1M0__
-//  #error "Teensy 3.6 with dual CAN bus is required to run this example"
-//#endif
 
 static CAN_message_t msg;
 static uint8_t hex[17] = "0123456789abcdef";
@@ -33,24 +30,10 @@ int16_t egtCyl7 = 0;
 int16_t egtCyl8 = 0;
 
 // -------------------------------------------------------------
-static void hexDump(uint8_t dumpLen, uint8_t *bytePtr)
-{
-  uint8_t working;
-  while( dumpLen-- ) {
-    working = *bytePtr++;
-    Serial.write( hex[ working>>4 ] );
-    Serial.write( hex[ working&15 ] );
-  }
-  Serial.write('\r');
-  Serial.write('\n');
-}
-
-
-// -------------------------------------------------------------
 void setup(void)
 {
   delay(1000);
-  Serial.println(F("Hello Teensy 3.6 dual CAN Test."));
+  Serial.println(F("Hello Teensy 3.2  CAN Test."));
   Serial2.begin(115200);
 
   Can0.begin(500000);  
@@ -78,14 +61,14 @@ void loop(void)
   while (Can0.available()) 
   {
     Can0.read(inMsg);
-    if(inMsg.id == 1152)
+    if(inMsg.id == 1552)
     {
       egtCyl1 = (inMsg.buf[1] << 8) + inMsg.buf[0];
       egtCyl2 = (inMsg.buf[3] << 8) + inMsg.buf[2];
       egtCyl3 = (inMsg.buf[5] << 8) + inMsg.buf[4];
       egtCyl4 = (inMsg.buf[7] << 8) + inMsg.buf[6];
     }
-    else if(inMsg.id == 1153)
+    else if(inMsg.id == 1553)
     {
       egtCyl5 = (inMsg.buf[1] << 8) + inMsg.buf[0];
       egtCyl6 = (inMsg.buf[3] << 8) + inMsg.buf[2];
@@ -108,18 +91,17 @@ void loop(void)
   while(Serial2.available() >= 4)
   {
     serCmd = Serial2.read();
-    if(serCmd == "R")
+    if(serCmd == 82)
     {
       speeduinoInputChannel = Serial2.read();
       Serial2.read(); // consums CAN Address
       Serial2.read(); // consums CAN Address
-      Serial2.print("G");
+      Serial2.write('G');
       Serial2.write(1);
       Serial2.write(speeduinoInputChannel);
       switch(speeduinoInputChannel)
       {
         case 0:
-          egtCyl1 = 560;
           Serial2.write(lowByte(egtCyl1));
           Serial2.write(highByte(egtCyl1));
           break;
@@ -144,8 +126,16 @@ void loop(void)
           Serial2.write(highByte(egtCyl6));
           break;
         default:
+          Serial2.write(0);
+          Serial2.write(0);
           break;
       }
+      Serial2.write(0);
+      Serial2.write(0);
+      Serial2.write(0);
+      Serial2.write(0);
+      Serial2.write(0);
+      Serial2.write(0);
     }
   }
 }

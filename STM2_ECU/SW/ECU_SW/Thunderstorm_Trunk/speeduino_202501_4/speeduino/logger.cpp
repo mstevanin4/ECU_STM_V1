@@ -56,14 +56,8 @@ byte getTSLogEntry(uint16_t byteNum)
       statusValue = highByte(currentStatus.loopsPerSecond); 
       break;
     
-    case 28: 
-      currentStatus.freeRAM = freeRam();
-      statusValue = lowByte(currentStatus.freeRAM); //(byte)((currentStatus.loopsPerSecond >> 8) & 0xFF);
-      break; 
-    case 29: 
-      currentStatus.freeRAM = freeRam();
-      statusValue = highByte(currentStatus.freeRAM); 
-      break;
+    case 28: statusValue = lowByte(currentStatus.afrTargetLoad); break; 
+    case 29: statusValue = highByte(currentStatus.afrTargetLoad); break; 
 
     case 30: statusValue = lowByte(currentStatus.boostTarget >> 1U); break; //Divide boost target by 2 to fit in a byte
     case 31: statusValue = lowByte(div100(currentStatus.boostDuty)); break;
@@ -372,9 +366,11 @@ uint8_t getLegacySecondarySerialLogEntry(uint16_t byteNum)
     case 24: statusValue = currentStatus.TPS; break; // TPS (0% to 100%)
     case 25: statusValue = lowByte(currentStatus.loopsPerSecond); break;
     case 26: statusValue = highByte(currentStatus.loopsPerSecond); break;
-
-    case 27: currentStatus.freeRAM = freeRam(); statusValue = lowByte(currentStatus.freeRAM); break; //(byte)((currentStatus.loopsPerSecond >> 8) & 0xFF); break;
-    case 28: currentStatus.freeRAM = freeRam(); statusValue = highByte(currentStatus.freeRAM); break;
+	//ECU_STM2
+    //case 27: currentStatus.freeRAM = freeRam(); statusValue = lowByte(currentStatus.freeRAM); break; //(byte)((currentStatus.loopsPerSecond >> 8) & 0xFF); break;
+    //case 28: currentStatus.freeRAM = freeRam(); statusValue = highByte(currentStatus.freeRAM); break;
+	case 27: statusValue = lowByte(currentStatus.afrTargetLoad); break; 
+    case 28: statusValue = highByte(currentStatus.afrTargetLoad); break;
 
     case 29: statusValue = (byte)(currentStatus.boostTarget >> 1); break; //Divide boost target by 2 to fit in a byte
     case 30: statusValue = (byte)(currentStatus.boostDuty / 100); break;

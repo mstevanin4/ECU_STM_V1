@@ -696,6 +696,7 @@ struct statuses {
   byte outputsStatus;
   byte TS_SD_Status; //TunerStudios SD card status
   byte airConStatus;
+  int16_t afrTargetLoad;  //ECU_STM2
 };
 
 /**
